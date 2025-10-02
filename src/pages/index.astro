@@ -1,0 +1,261 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const heroImage =
+	'https://images.unsplash.com/photo-1523731407965-2430cd12f5e4?auto=format&fit=crop&w=1400&q=80';
+---
+
+<Layout title="Sol Tiny Cohousing | Affordable Living. Together.">
+	<main class="page">
+		<section class="hero">
+			<div class="hero-copy">
+				<p class="eyebrow">Grass Valley • Nevada City • Nevada County</p>
+				<h1>Sol Tiny Cohousing</h1>
+				<p class="tagline">Affordable Living. Together.</p>
+				<p class="lede">
+					Sol Tiny Co-Housing is a housing project in the Grass Valley/Nevada City area pioneering
+					the use of beautifully crafted tiny homes to create affordable, community-centered
+					housing in Nevada County.
+				</p>
+				<div class="cta-group">
+					<a class="cta-primary" href="#pillars">Discover our vision</a>
+					<a class="cta-secondary" href="mailto:hello@soltinycohousing.org">Join the interest list</a>
+				</div>
+			</div>
+			<figure class="hero-visual">
+				<img
+					src={heroImage}
+					alt="Warm light glowing from a tiny wood cabin surrounded by tall evergreen trees"
+					loading="eager"
+					decoding="async"
+				/>
+			</figure>
+		</section>
+
+		<section id="pillars" class="pillars">
+			<h2>We are dedicated to…</h2>
+			<div class="pillar-grid">
+				<article>
+					<h3>Affordability</h3>
+					<p>
+						Making new housing for the teachers, firefighters, farmers, and artists that make
+						Nevada County special. Thoughtful design and shared infrastructure keep monthly costs
+						realistic for working families.
+					</p>
+				</article>
+				<article>
+					<h3>Community</h3>
+					<p>
+						We prioritize local investors, materials, and labor so that every dollar we spend
+						strengthens the people and businesses of our region. Cohousing amenities cultivate
+						daily connection.
+					</p>
+				</article>
+				<article>
+					<h3>Sustainability</h3>
+					<p>
+						High-quality, non-toxic, and low-carbon footprint materials reduce our environmental
+						impact. Each tiny home is designed for energy efficiency, healthy indoor air, and a
+						long lifespan.
+					</p>
+				</article>
+			</div>
+		</section>
+
+		<section class="callout">
+			<h2>Be part of the founding circle</h2>
+			<p>
+				We are actively gathering future residents, investors, and partners who share our belief
+				that housing can be both attainable and inspiring. Let’s build a neighborhood where
+				everyone belongs.
+			</p>
+			<a class="cta-primary" href="mailto:hello@soltinycohousing.org">Say hello</a>
+		</section>
+	</main>
+</Layout>
+
+<style>
+	.page {
+		min-height: 100vh;
+		display: flex;
+		flex-direction: column;
+		gap: 120px;
+		padding: 64px clamp(24px, 5vw, 120px) 96px;
+		box-sizing: border-box;
+	}
+
+	.hero {
+		display: grid;
+		gap: 48px;
+		align-items: center;
+		grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+	}
+
+	.hero-copy h1 {
+		margin: 0;
+		font-family: 'Playfair Display', Georgia, serif;
+		font-size: clamp(40px, 6vw, 72px);
+		letter-spacing: -0.02em;
+	}
+
+	.eyebrow {
+		margin: 0;
+		font-size: 14px;
+		font-weight: 600;
+		letter-spacing: 0.2em;
+		text-transform: uppercase;
+		color: #6b705c;
+	}
+
+	.tagline {
+		margin: 16px 0 24px;
+		font-size: clamp(22px, 3vw, 32px);
+		font-weight: 600;
+		color: #3a5a40;
+	}
+
+	.lede {
+		margin: 0 0 32px;
+		max-width: 620px;
+		font-size: 18px;
+		line-height: 1.65;
+		color: #424b3a;
+	}
+
+	.hero-visual {
+		position: relative;
+		margin: 0;
+	}
+
+	.hero-visual img {
+		width: 100%;
+		display: block;
+		border-radius: 28px;
+		box-shadow: 0 24px 48px rgba(20, 34, 26, 0.3);
+		object-fit: cover;
+		aspect-ratio: 4 / 3;
+	}
+
+	.cta-group {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 16px;
+	}
+
+	.cta-primary,
+	.cta-secondary {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		padding: 14px 24px;
+		border-radius: 999px;
+		font-weight: 600;
+		text-decoration: none;
+		transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+	}
+
+	.cta-primary {
+		background: linear-gradient(135deg, #3a5a40, #a3b18a);
+		color: #fffef6;
+		box-shadow: 0 12px 24px rgba(58, 90, 64, 0.35);
+	}
+
+	.cta-primary:hover {
+		transform: translateY(-2px);
+		box-shadow: 0 16px 28px rgba(58, 90, 64, 0.4);
+	}
+
+	.cta-secondary {
+		background: rgba(255, 255, 255, 0.6);
+		color: #3a5a40;
+		border: 1px solid rgba(58, 90, 64, 0.2);
+	}
+
+	.cta-secondary:hover {
+		transform: translateY(-2px);
+		background: rgba(255, 255, 255, 0.85);
+	}
+
+	.pillars {
+		display: flex;
+		flex-direction: column;
+		gap: 40px;
+	}
+
+	.pillars h2 {
+		margin: 0;
+		font-family: 'Playfair Display', Georgia, serif;
+		font-size: clamp(32px, 4vw, 48px);
+	}
+
+	.pillar-grid {
+		display: grid;
+		gap: 24px;
+		grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+	}
+
+	.pillar-grid article {
+		padding: 32px;
+		border-radius: 24px;
+		background: rgba(255, 255, 255, 0.85);
+		box-shadow: 0 16px 32px rgba(31, 42, 28, 0.08);
+		backdrop-filter: blur(4px);
+	}
+
+	.pillar-grid h3 {
+		margin: 0 0 16px;
+		font-size: 22px;
+		color: #3a5a40;
+	}
+
+	.pillar-grid p {
+		margin: 0;
+		line-height: 1.7;
+		color: #495443;
+	}
+
+	.callout {
+		text-align: center;
+		padding: 56px clamp(24px, 8vw, 120px);
+		border-radius: 32px;
+		background: linear-gradient(135deg, rgba(58, 90, 64, 0.92), rgba(163, 177, 138, 0.92));
+		color: #fffef6;
+		box-shadow: 0 24px 48px rgba(34, 52, 32, 0.45);
+	}
+
+	.callout h2 {
+		margin: 0 0 16px;
+		font-family: 'Playfair Display', Georgia, serif;
+		font-size: clamp(30px, 5vw, 44px);
+	}
+
+	.callout p {
+		margin: 0 0 32px;
+		font-size: 18px;
+		line-height: 1.7;
+		max-width: 720px;
+		margin-inline: auto;
+	}
+
+	.callout .cta-primary {
+		background: #fffef6;
+		color: #2f3e2d;
+		box-shadow: none;
+	}
+
+	@media (max-width: 720px) {
+		.page {
+			gap: 80px;
+			padding-top: 48px;
+		}
+
+		.cta-group {
+			flex-direction: column;
+			align-items: flex-start;
+		}
+
+		.callout {
+			padding-inline: 24px;
+		}
+	}
+</style>
