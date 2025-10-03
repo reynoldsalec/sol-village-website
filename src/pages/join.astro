@@ -1,0 +1,331 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const heroImage = 'https://images.unsplash.com/photo-1560440021-33c98b67dc67?auto=format&fit=crop&w=1400&q=80';
+---
+
+<Layout title="Join the Interest List | Sol Tiny Cohousing">
+	<main class="page">
+		<section class="hero">
+			<div class="hero-copy">
+				<p class="eyebrow">Join our community</p>
+				<h1>Join the Interest List</h1>
+				<p class="tagline">Be part of something special</p>
+				<p class="lede">
+					Get early access to updates about Sol Tiny Cohousing and be among the first to know when 
+					we're ready to welcome new residents. Join our growing community of forward-thinking individuals 
+					who believe in affordable, sustainable living.
+				</p>
+			</div>
+			<figure class="hero-visual">
+				<img
+					src={heroImage}
+					alt="Community garden with raised beds and people working together"
+					loading="eager"
+					decoding="async"
+				/>
+			</figure>
+		</section>
+
+		<section>
+
+			<form class="signup-form" method="POST" action="/api/join-interest-list">
+				<h2>Join Our Interest List</h2>
+				<p class="form-description">
+					We'll keep you updated on our progress and let you know about upcoming opportunities. 
+					We respect your privacy and won't share your information.
+				</p>
+
+				<div class="form-grid">
+					<div class="field-group">
+						<label for="firstName">First Name *</label>
+						<input type="text" id="firstName" name="firstName" required />
+					</div>
+
+					<div class="field-group">
+						<label for="lastName">Last Name *</label>
+						<input type="text" id="lastName" name="lastName" required />
+					</div>
+
+					<div class="field-group">
+						<label for="email">Email Address *</label>
+						<input type="email" id="email" name="email" required />
+					</div>
+
+					<div class="field-group">
+						<label for="phone">Phone Number</label>
+						<input type="tel" id="phone" name="phone" />
+					</div>
+
+					<div class="field-group span-2">
+						<label for="reason">What interests you most about Sol Tiny Cohousing?</label>
+						<select id="reason" name="reason">
+							<option value="">Select an option</option>
+							<option value="affordability">Affordable housing</option>
+							<option value="community">Community-focused living</option>
+							<option value="sustainability">Sustainable practices</option>
+							<option value="tiny-homes">Tiny home design</option>
+							<option value="investment">Investment opportunity</option>
+							<option value="living">Future residence</option>
+							<option value="other">Other</option>
+						</select>
+					</div>
+
+					<div class="field-group span-2">
+						<label for="message">Tell us more about yourself (optional)</label>
+						<textarea id="message" name="message" rows="4" placeholder="What brings you to Nevada County? What are you looking for in a community?"></textarea>
+					</div>
+
+					<div class="field-group span-2">
+						<label class="checkbox-label">
+							<input type="checkbox" name="newsletter" checked />
+							<span class="checkmark"></span>
+							Send me updates about Sol Tiny Cohousing news and events
+						</label>
+					</div>
+
+					<div class="field-group span-2">
+						<label class="checkbox-label">
+							<input type="checkbox" name="privacy" required />
+							<span class="checkmark"></span>
+							I agree to the <a href="/privacy" target="_blank">Privacy Policy</a> and understand how my information will be used *
+						</label>
+					</div>
+				</div>
+
+				<button type="submit" class="cta-primary">Join the Interest List</button>
+
+				<p class="form-note">
+					Have questions? Feel free to <a href="mailto:hello@soltinycohousing.org">email us directly</a>.
+				</p>
+			</form>
+		</section>
+	</main>
+</Layout>
+
+<style>
+	.page {
+		min-height: 100vh;
+		display: flex;
+		flex-direction: column;
+		gap: 80px;
+		padding: 160px clamp(24px, 5vw, 120px) 96px;
+		box-sizing: border-box;
+	}
+
+	.hero {
+		display: grid;
+		gap: 48px;
+		align-items: center;
+		grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+	}
+
+	.hero-copy h1 {
+		margin: 0;
+		font-family: 'Playfair Display', Georgia, serif;
+		font-size: clamp(40px, 6vw, 72px);
+		letter-spacing: -0.02em;
+	}
+
+	.eyebrow {
+		margin: 0;
+		font-size: 14px;
+		font-weight: 600;
+		letter-spacing: 0.2em;
+		text-transform: uppercase;
+		color: #6b705c;
+	}
+
+	.tagline {
+		margin: 16px 0 24px;
+		font-size: clamp(22px, 3vw, 32px);
+		font-weight: 600;
+		color: #3a5a40;
+	}
+
+	.lede {
+		margin: 0 0 32px;
+		max-width: 620px;
+		font-size: 18px;
+		line-height: 1.65;
+		color: #424b3a;
+	}
+
+	.hero-visual {
+		position: relative;
+		margin: 0;
+	}
+
+	.hero-visual img {
+		width: 100%;
+		display: block;
+		border-radius: 28px;
+		box-shadow: 0 24px 48px rgba(20, 34, 26, 0.3);
+		object-fit: cover;
+		aspect-ratio: 4 / 3;
+	}
+
+	.signup-form {
+		max-width: 800px;
+		margin: 0 auto;
+		padding: 48px clamp(24px, 8vw, 64px);
+		border-radius: 32px;
+		background: rgba(255, 255, 255, 0.95);
+		box-shadow: 0 24px 48px rgba(31, 42, 28, 0.12);
+		backdrop-filter: blur(4px);
+	}
+
+	.signup-form h2 {
+		margin: 0 0 16px;
+		font-family: 'Playfair Display', Georgia, serif;
+		font-size: clamp(30px, 5vw, 44px);
+		color: #3a5a40;
+		text-align: center;
+	}
+
+	.form-description {
+		margin: 0 0 40px;
+		font-size: 18px;
+		line-height: 1.7;
+		color: #495443;
+		text-align: center;
+	}
+
+	.form-grid {
+		display: grid;
+		gap: 24px;
+		grid-template-columns: repeat(2, 1fr);
+		margin-bottom: 40px;
+	}
+
+	.field-group {
+		display: flex;
+		flex-direction: column;
+		gap: 8px;
+	}
+
+	.field-group.span-2 {
+		grid-column: span 2;
+	}
+
+	label {
+		font-weight: 600;
+		color: #3a5a40;
+		font-size: 14px;
+	}
+
+	input,
+	select,
+	textarea {
+		font-family: inherit;
+		padding: 14px 18px;
+		border: 1px solid rgba(58, 90, 64, 0.2);
+		border-radius: 12px;
+		font-size: 16px;
+		transition: border-color 0.2s ease, box-shadow 0.2s ease;
+		background: rgba(255, 255, 255, 0.8);
+	}
+
+	input:focus,
+	select:focus,
+	textarea:focus {
+		outline: none;
+		border-color: #3a5a40;
+		box-shadow: 0 0 0 3px rgba(58, 90, 64, 0.1);
+	}
+
+	textarea {
+		resize: vertical;
+		min-height: 120px;
+		font-family: inherit;
+		line-height: 1.6;
+	}
+
+	.checkbox-label {
+		display: flex;
+		align-items: flex-start;
+		gap: 12px;
+		cursor: pointer;
+		font-weight: 500;
+		line-height: 1.5;
+		color: #495443;
+	}
+
+	.checkbox-label input[type="checkbox"] {
+		margin: 0;
+		width: 18px;
+		height: 18px;
+		flex-shrink: 0;
+		margin-top: 2px;
+		accent-color: #3a5a40;
+	}
+
+	.checkbox-label a {
+		color: #3a5a40;
+		text-decoration: underline;
+	}
+
+	.checkbox-label a:hover {
+		color: #2c4531;
+	}
+
+	.cta-primary {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		padding: 16px 32px;
+		border-radius: 999px;
+		font-weight: 600;
+		font-size: 18px;
+		text-decoration: none;
+		transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+		background: linear-gradient(135deg, #3a5a40, #a3b18a);
+		color: #fffef6;
+		box-shadow: 0 12px 24px rgba(58, 90, 64, 0.35);
+		border: none;
+		cursor: pointer;
+		width: 100%;
+		max-width: 300px;
+		margin: 0 auto 24px;
+	}
+
+	.cta-primary:hover {
+		transform: translateY(-2px);
+		box-shadow: 0 16px 28px rgba(58, 90, 64, 0.4);
+	}
+
+	.form-note {
+		margin: 24px 0 0;
+		font-size: 14px;
+		color: #6b705c;
+		text-align: center;
+	}
+
+	.form-note a {
+		color: #3a5a40;
+		text-decoration: underline;
+	}
+
+	.form-note a:hover {
+		color: #2c4531;
+	}
+
+	@media (max-width: 768px) {
+		.page {
+			gap: 60px;
+			padding-top: 128px;
+		}
+
+		.form-grid {
+			grid-template-columns: 1fr;
+		}
+
+		.field-group.span-2 {
+			grid-column: span 1;
+		}
+
+		.signup-form {
+			padding: 32px 24px;
+		}
+	}
+</style>

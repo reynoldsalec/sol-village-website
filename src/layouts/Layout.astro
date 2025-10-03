@@ -1,4 +1,6 @@
 ---
+import Navigation from '../components/Navigation.astro';
+
 const { title = 'Sol Tiny Cohousing' } = Astro.props;
 ---
 
@@ -18,6 +20,7 @@ const { title = 'Sol Tiny Cohousing' } = Astro.props;
 		<title>{title}</title>
 	</head>
 	<body>
+		<Navigation />
 		<slot />
 	</body>
 </html>

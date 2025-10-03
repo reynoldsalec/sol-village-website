@@ -1,0 +1,471 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const heroImage = 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=1400&q=80';
+const cohousingImage = 'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=1200&q=80';
+const tinyHomeImage = 'https://images.unsplash.com/photo-1582261992145-c2c86f0b3b2d?auto=format&fit=crop&w=1200&q=80';
+const interiorsImage = 'https://images.unsplash.com/photo-1523381210434-271e8be1f52b?auto=format&fit=crop&w=1200&q=80';
+---
+
+<Layout title="Our Vision | Sol Tiny Cohousing">
+	<main class="page">
+		<section class="hero">
+			<div class="hero-copy">
+				<p class="eyebrow">Our vision</p>
+				<h1>Building Community Through Co-Housing</h1>
+				<p class="tagline">Affordable living that connects neighbors</p>
+				<p class="lede">
+					We're pioneering a new model of community living that combines the independence of private homes 
+					with the connection of shared spaces. Our vision centers on affordable, sustainable tiny homes 
+					that foster genuine neighborly relationships in Nevada County.
+				</p>
+			</div>
+			<figure class="hero-visual">
+				<img
+					src={heroImage}
+					alt="Community members gathering in a shared outdoor space with beautiful landscaping"
+					loading="eager"
+					decoding="async"
+				/>
+			</figure>
+		</section>
+
+		<section class="cohousing-section">
+			<div class="section-content">
+				<div class="text-content">
+					<h2>What is Co-Housing?</h2>
+					<p class="section-tagline">Living together, better.</p>
+					<p>
+						Co-housing is a way of living that blends the independence of private homes with the 
+						connection of shared community. Residents own private homes, but share access to common 
+						spaces—like gardens, workshops, or gathering halls—designed to foster connection, 
+						collaboration, and mutual support.
+					</p>
+					<p>
+						In Nevada County, we're lucky to have two textbook co-housing developments: 
+						<a href="https://nevadacitycohousing.org" target="_blank" rel="noopener">Nevada City Cohousing</a> 
+						and Wolf Creek Lodge. If you're interested in what co-housing looks like in practice, 
+						consider touring one of these developments or checking out "Creating Cohousing" from your 
+						local library.
+					</p>
+				</div>
+				<figure class="section-image">
+					<img src={cohousingImage} alt="Modern co-housing community with shared outdoor spaces and private homes" />
+				</figure>
+			</div>
+		</section>
+
+		<section class="tiny-homes-section">
+			<div class="section-content">
+				<figure class="section-image">
+					<img src={tinyHomeImage} alt="Beautiful tiny home on wheels with traditional house styling and natural materials" />
+				</figure>
+				<div class="text-content">
+					<h2>Why use "tiny homes"?</h2>
+					<p class="section-tagline">Halving the cost of building.</p>
+					<p>
+						Tiny homes are built on trailer beds, but unlike the trailer you'd see in a mobile home park, 
+						they are built in the style of a traditional house.
+					</p>
+					<p>
+						Tiny homes are dramatically less expensive to construct than traditional construction. The average 
+						cost to build a new home in Nevada County is over $600 per square foot; a Sol Tiny home costs 
+						less than half that while using higher quality materials.
+					</p>
+					<p>
+						Thanks to recent reforms in Nevada County code pioneered by Sol Tiny founder Travis Duckworth, 
+						tiny homes can now be used as permanent residences. All levels of local government are interested 
+						in how tiny homes can help solve our housing affordability crisis.
+					</p>
+				</div>
+			</div>
+		</section>
+
+		<section class="homes-section">
+			<div class="section-content">
+				<div class="text-content">
+					<h2>About the Homes</h2>
+					<p class="section-tagline">Beautiful homes made from local sustainable materials.</p>
+					<p>If you've seen tiny homes before, it's likely that you're imagining a small, shed-like structure with a ladder to a sleeping loft. Sol Tiny destroys that norm.</p>
+					<p>
+						After years of experience making tiny homes, Sol Tiny has found that building larger units (~400 sq ft) 
+						without lofts actually creates a much more "livable", open feel. Coupled with our dedication to 
+						high-quality, local and sustainable materials, Sol Tiny houses feel like premium-grade homes with lots of 
+						light and attractive architectural details.
+					</p>
+					<div class="highlight-box">
+						<h3>Our Design Philosophy</h3>
+						<ul>
+							<li><strong>Beautiful:</strong> Thoughtful architecture and natural materials</li>
+							<li><strong>Locally-made:</strong> Supporting Nevada County craftspeople and businesses</li>
+							<li><strong>Sustainable:</strong> Low-carbon footprint, healthy materials, energy efficient</li>
+						</ul>
+					</div>
+				</div>
+				<figure class="section-image">
+					<img src={interiorsImage} alt="Bright, spacious interior of a tiny home with high-quality finishes and natural light" />
+				</figure>
+			</div>
+		</section>
+
+		<section class="timeline-section">
+			<h2>Development Timeline</h2>
+			<p class="section-intro">
+				The Sol Tiny Cohousing project will have four rough phases:
+			</p>
+			<div class="timeline">
+				<div class="timeline-item">
+					<div class="timeline-number">1</div>
+					<div class="timeline-content">
+						<h3>Property Acquisition</h3>
+						<p class="timeline-year">2026</p>
+						<p>Sol Tiny Cohousing has identified several local properties and is in active negotiations. We're looking for land that offers both privacy and community connectivity.</p>
+					</div>
+				</div>
+				<div class="timeline-item">
+					<div class="timeline-number">2</div>
+					<div class="timeline-content">
+						<h3>Planning</h3>
+						<p class="timeline-year">2027</p>
+						<p>Once a property has been selected, we'll be able to make a site plan and work through permitting with local government. This phase includes community design input.</p>
+					</div>
+				</div>
+				<div>
+					<div class="timeline-number">3</div>
+					<div class="timeline-content">
+						<h3>Construction</h3>
+						<p class="timeline-year">2028</p>
+						<p>With an approved site plan and purchased property, we can break ground on infrastructure and hardscaping while units are being constructed using local labor.</p>
+					</div>
+				</div>
+				<div class="timeline-item">
+					<div class="timeline-number">4</div>
+					<div class="timeline-content">
+						<h3>Move-in</h3>
+						<p class="timeline-year">2029</p>
+						<p>After infrastructure has been installed, families can begin moving into units as they are built/purchased. Welcome home!</p>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<section class="callout">
+			<h2>Join our founding community</h2>
+			<p>
+				We're actively gathering future residents, investors, and partners who share our vision of 
+				affordable, community-centered living in Nevada County. Your participation now will help shape 
+				the future of housing in our region.
+			</p>
+			<a class="cta-primary" href="/join">Join the interest list</a>
+		</section>
+	</main>
+</Layout>
+
+<style>
+	.page {
+		min-height: 100vh;
+		display: flex;
+		flex-direction: column;
+		gap: 120px;
+		padding: 160px clamp(24px, 5vw, 120px) 96px;
+		box-sizing: border-box;
+	}
+
+	.hero {
+		display: grid;
+		gap: 48px;
+		align-items: center;
+		grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+	}
+
+	.hero-copy h1 {
+		margin: 0;
+		font-family: 'Playfair Display', Georgia, serif;
+		font-size: clamp(40px, 6vw, 72px);
+		letter-spacing: -0.02em;
+	}
+
+	.eyebrow {
+		margin: 0;
+		font-size: 14px;
+		font-weight: 600;
+		letter-spacing: 0.2em;
+		text-transform: uppercase;
+		color: #6b705c;
+	}
+
+	.tagline {
+		margin: 16px 0 24px;
+		font-size: clamp(22px, 3vw, 32px);
+		font-weight: 600;
+		color: #3a5a40;
+	}
+
+	.lede {
+		margin: 0 0 32px;
+		max-width: 620px;
+		font-size: 18px;
+		line-height: 1.65;
+		color: #424b3a;
+	}
+
+	.hero-visual {
+		position: relative;
+		margin: 0;
+	}
+
+	.hero-visual img {
+		width: 100%;
+		display: block;
+		border-radius: 28px;
+		box-shadow: 0 24px 48px rgba(20, 34, 26, 0.3);
+		object-fit: cover;
+		aspect-ratio: 4 / 3;
+	}
+
+	.cohousing-section,
+	.tiny-homes-section,
+	.homes-section {
+		margin: 0;
+	}
+
+	.section-content {
+		display: grid;
+		gap: 48px;
+		align-items: grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+	}
+
+	.tiny-homes-section .section-content {
+		grid-template-columns: 1fr 1fr;
+		grid-gap: 48px;
+	}
+
+	.cohousing-section .section-content,
+	.homes-section .section-content {
+		grid-template-columns: 1fr 1fr;
+		grid-gap: 48px;
+	}
+
+	.text-content h2 {
+		margin: 0 0 12px;
+		font-family: 'Playfair Display', Georgia, serif;
+		font-size: clamp(28px, 4vw, 40px);
+		color: #3a5a40;
+	}
+
+	.section-tagline {
+		margin: 0 0 24px;
+		font-size: 18px;
+		font-weight: 600;
+		color: #2c4531;
+		font-style: italic;
+	}
+
+	.text-content p {
+		margin: 0 0 20px;
+		line-height: 1.7;
+		color: #495443;
+		font-size: 16px;
+	}
+
+	.text-content a {
+		color: #3a5a40;
+		text-decoration: underline;
+		font-weight: 500;
+	}
+
+	.text-content a:hover {
+		color: #2c4531;
+	}
+
+	.section-image {
+		position: relative;
+		margin: 0;
+		order: 1;
+	}
+
+	.tiny-homes-section .section-image {
+		order: -1;
+	}
+
+	.section-image img {
+		width: 100%;
+		display: block;
+		border-radius: 20px;
+		box-shadow: 0 16px 32px rgba(20, 34, 26, 0.25);
+		object-fit: cover;
+		aspect-ratio: 4 / 3;
+	}
+
+	.highlight-box {
+		margin-top: 24px;
+		padding: 24px;
+		background: rgba(255, 255, 255, 0.8);
+		border-radius: 16px;
+		box-shadow: 0 8px 16px rgba(31, 42, 28, 0.08);
+		border-left: 4px solid #3a5a40;
+	}
+
+	.highlight-box h3 {
+		margin: 0 0 16px;
+		color: #3a5a40;
+		font-size: 20px;
+	}
+
+	.highlight-box ul {
+		margin: 0;
+		padding-left: 0;
+		list-style: none;
+	}
+
+	.highlight-box li {
+		margin: 0 0 8px;
+		color: #495443;
+		line-height: 1.6;
+	}
+
+	.timeline-section {
+		text-align: center;
+		max-width: 900px;
+		margin: 0 auto;
+	}
+
+	.timeline-section h2 {
+		margin: 0 0 16px;
+		font-family: 'Playfair Display', Georgia, serif;
+		font-size: clamp(32px, 4vw, 48px);
+		color: #3a5a40;
+	}
+
+	.section-intro {
+		margin: 0 0 48px;
+		font-size: 18px;
+		color: #495443;
+		line-height: 1.7;
+	}
+
+	.timeline {
+		display: grid;
+		gap: 32px;
+		grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+		text-align: left;
+	}
+
+	.timeline-item {
+		padding: 24px;
+		background: rgba(255, 255, 255, 0.9);
+		border-radius: 20px;
+		box-shadow: 0 12px 24px rgba(31, 42, 28, 0.1);
+		transition: transform 0.2s ease, box-shadow 0.2s ease;
+	}
+
+	.timeline-item:hover {
+		transform: translateY(-4px);
+		box-shadow: 0 20px 32px rgba(31, 42, 28, 0.15);
+	}
+
+	.timeline-number {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		width: 40px;
+		height: 40px;
+		background: linear-gradient(135deg, #3a5a40, #a3b18a);
+		color: white;
+		border-radius: 50%;
+		font-weight: 700;
+		font-size: 18px;
+		margin-bottom: 16px;
+	}
+
+	.timeline-content h3 {
+		margin: 0 0 8px;
+		font-size: 20px;
+		color: #3a5a40;
+		font-weight: 600;
+	}
+
+	.timeline-year {
+		margin: 0 0 12px;
+		font-weight: 600;
+		color: #2c4531;
+		font-size: 16px;
+	}
+
+	.timeline-content p {
+		margin: 0;
+		color: #495443;
+		line-height: 1.6;
+		font-size: 15px;
+	}
+
+	.callout {
+		text-align: center;
+		padding: 56px clamp(24px, 8vw, 120px);
+		border-radius: 32px;
+		background: linear-gradient(135deg, rgba(58, 90, 64, 0.92), rgba(163, 177, 138, 0.92));
+		color: #fffef6;
+		box-shadow: 0 24px 48px rgba(34, 52, 32, 0.45);
+	}
+
+	.callout h2 {
+		margin: 0 0 16px;
+		font-family: 'Playfair Display', Georgia, serif;
+		font-size: clamp(30px, 5vw, 44px);
+	}
+
+	.callout p {
+		margin: 0 0 32px;
+		font-size: 18px;
+		line-height: 1.7;
+		max-width: 720px;
+		margin-inline: auto;
+	}
+
+	.cta-primary {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		padding: 16px 32px;
+		border-radius: 999px;
+		font-weight: 600;
+		font-size: 18px;
+		text-decoration: none;
+		transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+		background: #fffef6;
+		color: #2f3e2d;
+		box-shadow: none;
+	}
+
+	.cta-primary:hover {
+		transform: translateY(-2px);
+		box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+	}
+
+	@media (max-width: 768px) {
+		.page {
+			gap: 80px;
+			padding-top: 128px;
+		}
+
+		.cohousing-section .section-content,
+		.tiny-homes-section .section-content,
+		ul .section-content {
+			grid-template-columns: 1fr;
+			gap: 32px;
+		}
+
+		.timeline {
+			grid-template-columns: 1fr;
+			gap: 24px;
+		}
+
+		.timeline-item {
+			padding: 20px;
+		}
+
+		.callout {
+			padding-inline: 24px;
+		}
+	}
+</style>

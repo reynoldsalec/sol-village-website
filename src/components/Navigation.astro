@@ -1,0 +1,168 @@
+---
+// Navigation component for the site header
+---
+
+<nav class="navigation">
+	<div class="nav-container">
+		<a href="/" class="nav-logo">
+			<span class="logo-text">Sol Tiny Cohousing</span>
+		</a>
+		
+		<ul class="nav-menu">
+			<li><a href="/" class="nav-link">Home</a></li>
+			<li><a href="/vision" class="nav-link">Vision</a></li>
+			<li><a href="/membership" class="nav-link">Membership</a></li>
+			<li><a href="/investment" class="nav-link">Investment</a></li>
+			<li><a href="/faq" class="nav-link">FAQ</a></li>
+		</ul>
+	</div>
+</nav>
+
+<style>
+	.navigation {
+		position: fixed;
+		top: 0;
+		left: 0;
+		right: 0;
+		z-index: 1000;
+		background: rgba(255, 255, 255, 0.95);
+		backdrop-filter: blur(8px);
+		border-bottom: 1px solid rgba(58, 90, 64, 0.1);
+		padding: 0 calc(100vw / 12);
+		height: 80px;
+		display: flex;
+		align-items: center;
+	}
+
+	.nav-container {
+		width: 100%;
+		max-width: 1400px;
+		margin: 0 auto;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+	}
+
+	.nav-logo {
+		text-decoration: none;
+		color: inherit;
+		font-weight: 700;
+		font-size: 20px;
+		color: #3a5a40;
+		transition: color 0.2s ease;
+	}
+
+	.nav-logo:hover {
+		color: #2c4531;
+	}
+
+	.logo-text {
+		font-family: 'Playfair Display', Georgia, serif;
+		font-weight: 600;
+	}
+
+	.nav-menu {
+		display: flex;
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		gap: 28px;
+		align-items: center;
+	}
+
+	.nav-menu li {
+		margin: 0;
+	}
+
+	.nav-link {
+		text-decoration: none;
+		color: #495443;
+		font-weight: 500;
+		font-size: 16px;
+		transition: color 0.2s ease, transform 0.2s ease;
+		position: relative;
+		padding: 8px 0;
+	}
+
+	.nav-link:hover {
+		color: #3a5a40;
+		transform: translateY(-1px);
+	}
+
+	.nav-link::after {
+		content: '';
+		position: absolute;
+		bottom: 4px;
+		left: 0;
+		width: 0;
+		height: 2px;
+		background: linear-gradient(135deg, #3a5a40, #a3b18a);
+		transition: width 0.3s ease;
+	}
+
+	.nav-link:hover::after,
+	.nav-link[aria-current="page"]::after {
+		width: 100%;
+	}
+
+	.nav-link[aria-current="page"] {
+		color: #3a5a40;
+		font-weight: 600;
+	}
+
+	@media (max-width: 768px) {
+		.navigation {
+			padding: 0 24px;
+			height: 64px;
+		}
+
+		.nav-menu {
+			gap: 20px;
+		}
+
+		.nav-link {
+			font-size: 14px;
+		}
+
+		.logo-text {
+			font-size: 17px;
+		}
+	}
+
+	@media (max-width: 640px) {
+		.navigation {
+			padding: 0 20px;
+			height: 60px;
+		}
+
+		.nav-menu {
+			gap: 16px;
+		}
+
+		.nav-link {
+			font-size: 13px;
+		}
+
+		.logo-text {
+			font-size: 16px;
+		}
+	}
+
+	@media (max-width: 480px) {
+		.navigation {
+			padding: 0 16px;
+		}
+
+		.nav-menu {
+			gap: 12px;
+		}
+
+		.nav-link {
+			font-size: 12px;
+		}
+
+		.logo-text {
+			font-size: 15px;
+		}
+	}
+</style>
