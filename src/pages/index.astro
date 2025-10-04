@@ -1,30 +1,29 @@
 ---
 import Layout from '../layouts/Layout.astro';
 
-const heroImage =
-	'https://images.unsplash.com/photo-1523731407965-2430cd12f5e4?auto=format&fit=crop&w=1400&q=80';
+import HeroImage from '../assets/sol-cohousing-hero.webp';
+
 ---
 
-<Layout title="Sol Tiny Cohousing | Affordable Living. Together.">
+<Layout title="Sol Cohousing | Affordable Living. Together.">
 	<main class="page">
 		<section class="hero">
 			<div class="hero-copy">
-				<p class="eyebrow">Grass Valley • Nevada City • Nevada County</p>
-				<h1>Sol Tiny Cohousing</h1>
+				<p class="eyebrow">Grass Valley • Nevada City</p>
+				<h1>Sol Cohousing</h1>
 				<p class="tagline">Affordable Living. Together.</p>
 				<p class="lede">
-					Sol Tiny Co-Housing is a housing project in the Grass Valley/Nevada City area pioneering
-					the use of beautifully crafted tiny homes to create affordable, community-centered
+					Sol Cohousing is pioneering the use of beautifully crafted tiny homes to create affordable, community-centered
 					housing in Nevada County.
 				</p>
 				<div class="cta-group">
-					<a class="cta-primary" href="#pillars">Discover our vision</a>
+					<a class="cta-primary" href="/vision">Discover our vision</a>
 					<a class="cta-secondary" href="/join">Join the interest list</a>
 				</div>
 			</div>
 			<figure class="hero-visual">
 				<img
-					src={heroImage}
+					src={HeroImage.src}
 					alt="Warm light glowing from a tiny wood cabin surrounded by tall evergreen trees"
 					loading="eager"
 					decoding="async"

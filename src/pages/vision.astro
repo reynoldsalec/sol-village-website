@@ -1,10 +1,10 @@
 ---
 import Layout from '../layouts/Layout.astro';
 
-const heroImage = 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=1400&q=80';
-const cohousingImage = 'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=1200&q=80';
-const tinyHomeImage = 'https://images.unsplash.com/photo-1582261992145-c2c86f0b3b2d?auto=format&fit=crop&w=1200&q=80';
-const interiorsImage = 'https://images.unsplash.com/photo-1523381210434-271e8be1f52b?auto=format&fit=crop&w=1200&q=80';
+import heroImage from '../assets/sol-cohousing-vision.jpg';
+import cohousingImage from '../assets/sol-cohousing-vision-cohousing.jpg';
+import tinyHomeImage from '../assets/sol-cohousing-vision-double-tiny.webp';
+import interiorsImage from '../assets/sol-cohousing-vision-demo-model.webp';
 ---
 
 <Layout title="Our Vision | Sol Tiny Cohousing">
@@ -12,17 +12,15 @@ const interiorsImage = 'https://images.unsplash.com/photo-1523381210434-271e8be1
 		<section class="hero">
 			<div class="hero-copy">
 				<p class="eyebrow">Our vision</p>
-				<h1>Building Community Through Co-Housing</h1>
-				<p class="tagline">Affordable living that connects neighbors</p>
+				<h1>Affordable Living That Connects Neighbors</h1>
+				<p class="tagline">Building community through cohousing</p>
 				<p class="lede">
-					We're pioneering a new model of community living that combines the independence of private homes 
-					with the connection of shared spaces. Our vision centers on affordable, sustainable tiny homes 
-					that foster genuine neighborly relationships in Nevada County.
+					Combining the tried-and-true model of cohousing with the affordability of modern tiny homes, we're pioneering a new model of affordable, sustainable housing that fosters genuine neighborly relationships in Nevada County.
 				</p>
 			</div>
 			<figure class="hero-visual">
 				<img
-					src={heroImage}
+					src={heroImage.src}
 					alt="Community members gathering in a shared outdoor space with beautiful landscaping"
 					loading="eager"
 					decoding="async"
@@ -50,7 +48,7 @@ const interiorsImage = 'https://images.unsplash.com/photo-1523381210434-271e8be1
 					</p>
 				</div>
 				<figure class="section-image">
-					<img src={cohousingImage} alt="Modern co-housing community with shared outdoor spaces and private homes" />
+					<img src={cohousingImage.src} alt="Modern co-housing community with shared outdoor spaces and private homes" />
 				</figure>
 			</div>
 		</section>
@@ -58,7 +56,7 @@ const interiorsImage = 'https://images.unsplash.com/photo-1523381210434-271e8be1
 		<section class="tiny-homes-section">
 			<div class="section-content">
 				<figure class="section-image">
-					<img src={tinyHomeImage} alt="Beautiful tiny home on wheels with traditional house styling and natural materials" />
+					<img src={tinyHomeImage.src} alt="Beautiful tiny home on wheels with traditional house styling and natural materials" />
 				</figure>
 				<div class="text-content">
 					<h2>Why use "tiny homes"?</h2>
@@ -103,7 +101,7 @@ const interiorsImage = 'https://images.unsplash.com/photo-1523381210434-271e8be1
 					</div>
 				</div>
 				<figure class="section-image">
-					<img src={interiorsImage} alt="Bright, spacious interior of a tiny home with high-quality finishes and natural light" />
+					<img src={interiorsImage.src} alt="Bright, spacious interior of a tiny home with high-quality finishes and natural light" />
 				</figure>
 			</div>
 		</section>
@@ -130,7 +128,7 @@ const interiorsImage = 'https://images.unsplash.com/photo-1523381210434-271e8be1
 						<p>Once a property has been selected, we'll be able to make a site plan and work through permitting with local government. This phase includes community design input.</p>
 					</div>
 				</div>
-				<div>
+				<div class="timeline-item">
 					<div class="timeline-number">3</div>
 					<div class="timeline-content">
 						<h3>Construction</h3>
