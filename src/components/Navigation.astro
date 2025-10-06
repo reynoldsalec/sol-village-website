@@ -1,19 +1,24 @@
 ---
 import SolLogo from '../assets/sol-cohousing-logo.png';
+import { Astro } from 'astro';
+
+// Use the base path from Astro's configuration
+const base = '/sol-cohousing-website';
+const homeUrl = base + '/';
+const visionUrl = base + '/vision';
+const joinUrl = base + '/join';
 ---
 
 <nav class="navigation">
 	<div class="nav-container">
-		<a href="/" class="nav-logo">
+		<a href={homeUrl} class="nav-logo">
 			<img src={SolLogo.src} alt="Sol Tiny Cohousing" class="logo-image" />
 		</a>
 		
 		<ul class="nav-menu">
-			<li><a href="/" class="nav-link">Home</a></li>
-			<li><a href="/vision" class="nav-link">Vision</a></li>
-			<li><a href="/membership" class="nav-link">Membership</a></li>
-			<li><a href="/investment" class="nav-link">Investment</a></li>
-			<li><a href="/faq" class="nav-link">FAQ</a></li>
+			<li><a href={homeUrl} class="nav-link">Home</a></li>
+			<li><a href={visionUrl} class="nav-link">Vision</a></li>
+			<li><a href={joinUrl} class="nav-link">Join</a></li>
 		</ul>
 	</div>
 </nav>
