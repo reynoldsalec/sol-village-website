@@ -3,6 +3,6 @@ import { defineConfig } from 'astro/config';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://reynoldsalec.github.io',
+  site: 'https://www.alecreynolds.com',
   base: '/sol-cohousing-website',
 });
