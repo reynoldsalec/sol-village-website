@@ -1,40 +1,61 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import HeroImage from '../assets/investment/hero.jpg';
 ---
 
 <Layout title="Investment | Sol Village">
 	<main class="page">
 		<section class="hero">
 			<div class="hero-copy">
-				<h1>Placeholder</h1>
+				<h1>Invest In Your Community</h1>
 				<p class="lede">
-					Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+					Sol Village offers local investors the opportunity to directly support sustainable, community-oriented housing — and earn a meaningful return while doing so.
 				</p>
+			</div>
+			<div class="hero-image">
+				<img src={HeroImage.src} alt="Community market with local vendors thriving" />
 			</div>
 		</section>
 
 		<section class="content">
 			<div class="content-grid">
 				<article class="content-card">
-					<h2>Lorem Ipsum</h2>
+					<div class="card-icon">💰</div>
+					<h2>10% Annual Return</h2>
 					<p>
-						Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+						Investors receive a minimum 10% annual return on their loan, with full principal and interest repayment upon maturity.
+					</p>
+				</article>
+				<article class="content-card">
+					<div class="card-icon">🤝</div>
+					<h2>$20K Minimum Investment</h2>
+					<p>
+						This threshold ensures we can keep administrative costs low while focusing on meaningful, relationship-driven partnerships with local investors.
 					</p>
 				</article>
 
 				<article class="content-card">
-					<h2>Sed Ut Perspiciatis</h2>
+					<div class="card-icon">🏠</div>
+					<h2>Secured By Property</h2>
 					<p>
-						Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
+						Each note is secured by physical assets — either land held by the project or tiny homes in construction or completed inventory.
 					</p>
 				</article>
+			</div>
+		</section>
 
-				<article class="content-card">
-					<h2>Nemo Enim Ipsam</h2>
-					<p>
-						Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.
-					</p>
-				</article>
+		<section class="community-investment">
+			<div class="community-bg">
+				<img src="/src/assets/sol-cohousing-vision-cohousing.jpg" alt="Community gathering" />
+			</div>
+			<div class="community-content">
+				<h2>🌱 Why Community Loans Matter</h2>
+				<p>
+					Traditional real estate financing often excludes small, locally driven projects like Sol Village. By choosing to invest directly, you're enabling a new kind of development model — one rooted in community, sustainability, and shared prosperity.
+				</p>
+				<p>
+					Every dollar invested helps keep Nevada County's housing future in local hands, builds equity for the community, and creates a replicable model for how small-scale development can serve people, not just markets.
+				</p>
 			</div>
 		</section>
 	</main>
@@ -52,8 +73,31 @@ import Layout from '../layouts/Layout.astro';
 
 	.hero {
 		text-align: center;
-		max-width: 800px;
+		max-width: 1000px;
 		margin: 0 auto;
+		display: grid;
+		grid-template-columns: 1fr 300px;
+		gap: 60px;
+		align-items: center;
+	}
+
+	.hero-copy {
+		text-align: left;
+	}
+
+	.hero-image {
+		width: 100%;
+		max-width: 300px;
+		border-radius: 12px;
+		overflow: hidden;
+		box-shadow: 0 8px 24px #1f2a1c20;
+	}
+
+	.hero-image img {
+		width: 100%;
+		height: 250px;
+		object-fit: cover;
+		display: block;
 	}
 
 	h1 {
@@ -89,6 +133,13 @@ import Layout from '../layouts/Layout.astro';
 		background: #ffffffd9;
 		box-shadow: 0 16px 32px #1f2a1c14;
 		backdrop-filter: blur(4px);
+		text-align: center;
+	}
+
+	.card-icon {
+		font-size: 48px;
+		margin-bottom: 20px;
+		display: block;
 	}
 
 	.content-card h2 {
@@ -104,6 +155,60 @@ import Layout from '../layouts/Layout.astro';
 		color: #495443;
 	}
 
+	.community-investment {
+		position: relative;
+		text-align: center;
+		max-width: 800px;
+		margin: 0 auto;
+		padding: 60px 32px;
+		border-radius: 24px;
+		overflow: hidden;
+		box-shadow: 0 16px 32px #1f2a1c14;
+	}
+
+	.community-bg {
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		z-index: -1;
+	}
+
+	.community-bg img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		opacity: 0.3;
+	}
+
+	.community-content {
+		position: relative;
+		z-index: 1;
+		background: #ffffffd9;
+		backdrop-filter: blur(4px);
+		padding: 40px;
+		border-radius: 16px;
+	}
+
+	.community-content h2 {
+		margin: 0 0 24px;
+		font-family: 'Playfair Display', Georgia, serif;
+		font-size: clamp(28px, 4vw, 36px);
+		color: #3a5a40;
+	}
+
+	.community-content p {
+		margin: 0 0 20px;
+		font-size: 18px;
+		line-height: 1.65;
+		color: #424b3a;
+	}
+
+	.community-content p:last-child {
+		margin-bottom: 0;
+	}
+
 	@media (max-width: 720px) {
 		.page {
 			gap: 60px;
@@ -112,6 +217,29 @@ import Layout from '../layouts/Layout.astro';
 
 		.content-grid {
 			grid-template-columns: 1fr;
+		}
+
+		.community-investment {
+			padding: 40px 24px;
+		}
+
+		.community-content {
+			padding: 32px 24px;
+		}
+
+		.hero {
+			grid-template-columns: 1fr;
+			gap: 40px;
+			text-align: center;
+		}
+
+		.hero-copy {
+			text-align: center;
+		}
+
+		.hero-image {
+			max-width: 280px;
+			margin: 0 auto;
 		}
 	}
 </style>
