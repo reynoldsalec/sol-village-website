@@ -139,45 +139,6 @@ const joinUrl = base + '/join';
 		aspect-ratio: 4 / 3;
 	}
 
-	.cta-group {
-		display: flex;
-		flex-wrap: wrap;
-		gap: 16px;
-	}
-
-	.cta-primary,
-	.cta-secondary {
-		display: inline-flex;
-		align-items: center;
-		justify-content: center;
-		padding: 14px 24px;
-		border-radius: 999px;
-		font-weight: 600;
-		text-decoration: none;
-		transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
-	}
-
-	.cta-primary {
-		background: linear-gradient(135deg, #3a5a40, #a3b18a);
-		color: #fffef6;
-		box-shadow: 0 12px 24px rgba(58, 90, 64, 0.35);
-	}
-
-	.cta-primary:hover {
-		transform: translateY(-2px);
-		box-shadow: 0 16px 28px rgba(58, 90, 64, 0.4);
-	}
-
-	.cta-secondary {
-		background: rgba(255, 255, 255, 0.6);
-		color: #3a5a40;
-		border: 1px solid rgba(58, 90, 64, 0.2);
-	}
-
-	.cta-secondary:hover {
-		transform: translateY(-2px);
-		background: rgba(255, 255, 255, 0.85);
-	}
 
 	.pillars {
 		display: flex;
@@ -217,48 +178,11 @@ const joinUrl = base + '/join';
 		color: #495443;
 	}
 
-	.callout {
-		text-align: center;
-		padding: 56px clamp(24px, 8vw, 120px);
-		border-radius: 32px;
-		background: linear-gradient(135deg, rgba(58, 90, 64, 0.92), rgba(163, 177, 138, 0.92));
-		color: #fffef6;
-		box-shadow: 0 24px 48px rgba(34, 52, 32, 0.45);
-	}
-
-	.callout h2 {
-		margin: 0 0 16px;
-		font-family: 'Playfair Display', Georgia, serif;
-		font-size: clamp(30px, 5vw, 44px);
-	}
-
-	.callout p {
-		margin: 0 0 32px;
-		font-size: 18px;
-		line-height: 1.7;
-		max-width: 720px;
-		margin-inline: auto;
-	}
-
-	.callout .cta-primary {
-		background: #fffef6;
-		color: #2f3e2d;
-		box-shadow: none;
-	}
 
 	@media (max-width: 720px) {
 		.page {
 			gap: 80px;
 			padding-top: 128px;
-		}
-
-		.cta-group {
-			flex-direction: column;
-			align-items: flex-start;
-		}
-
-		.callout {
-			padding-inline: 24px;
 		}
 	}
 </style>
