@@ -1,6 +1,6 @@
-# Sol Cohousing Website
+# Sol Village Website
 
-This project uses [Astro](https://astro.build) to build the marketing site for the Sol Cohousing community. The current state is the stock Astro "basics" starter—ready for you to customize with content, components, and styling that reflect the project vision.
+This project uses [Astro](https://astro.build) to build the marketing site for the Sol Village community. The current state is the stock Astro "basics" starter—ready for you to customize with content, components, and styling that reflect the project vision.
 
 ## 🚀 Project Structure
 

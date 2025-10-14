@@ -1,9 +1,9 @@
 ---
-import SolLogo from '../assets/sol-cohousing-logo.png';
+import SolLogo from '../assets/sol-village-logo.png';
 import { Astro } from 'astro';
 
 // Use the base path from Astro's configuration
-const base = '/sol-cohousing-website';
+const base = '/sol-village-website';
 const homeUrl = base + '/';
 const visionUrl = base + '/vision';
 const membershipUrl = base + '/membership';
@@ -14,7 +14,7 @@ const joinUrl = base + '/join';
 <nav class="navigation">
 	<div class="nav-container">
 		<a href={homeUrl} class="nav-logo">
-			<img src={SolLogo.src} alt="Sol Tiny Cohousing" class="logo-image" />
+			<img src={SolLogo.src} alt="Sol Village" class="logo-image" />
 		</a>
 		
 		<ul class="nav-menu">
@@ -62,7 +62,7 @@ const joinUrl = base + '/join';
 	}
 
 	.logo-image {
-		height: 80px;
+		height: 180px;
 		width: auto;
 		transition: all 0.2s ease;
 	}
