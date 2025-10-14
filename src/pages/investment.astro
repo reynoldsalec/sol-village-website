@@ -11,6 +11,7 @@ import HeroImage from '../assets/investment/hero.jpg';
 				<p class="lede">
 					Sol Village offers local investors the opportunity to directly support sustainable, community-oriented housing — and earn a meaningful return while doing so.
 				</p>
+				<a href="#" class="cta-primary">Schedule a Meeting</a>
 			</div>
 			<div class="hero-image">
 				<img src={HeroImage.src} alt="Community market with local vendors thriving" />
@@ -56,6 +57,26 @@ import HeroImage from '../assets/investment/hero.jpg';
 				<p>
 					Every dollar invested helps keep Nevada County's housing future in local hands, builds equity for the community, and creates a replicable model for how small-scale development can serve people, not just markets.
 				</p>
+			</div>
+		</section>
+
+		<section class="actions">
+			<div class="actions-grid">
+				<article class="action-card">
+					<h2>Investor Resources</h2>
+					<p>
+						If you have a question about investing, we might have answered it here. If not, feel free to call or write!
+					</p>
+					<a href="#" class="cta-primary">See FAQ</a>
+				</article>
+				
+				<article class="action-card">
+					<h2>Talk to Us</h2>
+					<p>
+						If you'd like to meet with the team to discuss investing, our experts are available here.
+					</p>
+					<a href="#" class="cta-primary">Schedule a meeting</a>
+				</article>
 			</div>
 		</section>
 	</main>
@@ -109,10 +130,29 @@ import HeroImage from '../assets/investment/hero.jpg';
 	}
 
 	.lede {
-		margin: 0;
+		margin: 0 0 32px;
 		font-size: 18px;
 		line-height: 1.65;
 		color: #424b3a;
+	}
+
+	.cta-primary {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		padding: 14px 24px;
+		border-radius: 999px;
+		font-weight: 600;
+		text-decoration: none;
+		transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+		background: linear-gradient(135deg, #3a5a40, #a3b18a);
+		color: #fffef6;
+		box-shadow: 0 12px 24px rgba(58, 90, 64, 0.35);
+	}
+
+	.cta-primary:hover {
+		transform: translateY(-2px);
+		box-shadow: 0 16px 28px rgba(58, 90, 64, 0.4);
 	}
 
 	.content {
@@ -209,6 +249,45 @@ import HeroImage from '../assets/investment/hero.jpg';
 		margin-bottom: 0;
 	}
 
+	.actions {
+		display: flex;
+		flex-direction: column;
+		gap: 60px;
+	}
+
+	.actions-grid {
+		display: grid;
+		gap: 32px;
+		grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+	}
+
+	.action-card {
+		padding: 40px;
+		border-radius: 24px;
+		background: #ffffffd9;
+		box-shadow: 0 16px 32px #1f2a1c14;
+		backdrop-filter: blur(4px);
+		text-align: center;
+		display: flex;
+		flex-direction: column;
+		gap: 24px;
+	}
+
+	.action-card h2 {
+		margin: 0;
+		font-family: 'Playfair Display', Georgia, serif;
+		font-size: 28px;
+		color: #3a5a40;
+	}
+
+	.action-card p {
+		margin: 0;
+		font-size: 18px;
+		line-height: 1.65;
+		color: #424b3a;
+		flex-grow: 1;
+	}
+
 	@media (max-width: 720px) {
 		.page {
 			gap: 60px;
@@ -240,6 +319,14 @@ import HeroImage from '../assets/investment/hero.jpg';
 		.hero-image {
 			max-width: 280px;
 			margin: 0 auto;
+		}
+
+		.actions-grid {
+			grid-template-columns: 1fr;
+		}
+
+		.action-card {
+			padding: 32px 24px;
 		}
 	}
 </style>
