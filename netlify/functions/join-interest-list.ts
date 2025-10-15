@@ -104,6 +104,7 @@ interface TwentyPersonData {
     firstName: string;
     lastName: string;
   };
+  subscribedToUpdates: boolean;
 }
 
 interface TwentyNoteData {
@@ -162,7 +163,8 @@ async function createPersonInTwentyCRM(formData: FormData): Promise<{ success: b
     name: {
       firstName: formData.firstName,
       lastName: formData.lastName
-    }
+    },
+    subscribedToUpdates: formData.newsletter === 'on'
   };
 
   console.log('TwentyCRM Person Data:', JSON.stringify(twentyPersonData, null, 2));
@@ -392,7 +394,8 @@ export const handler = async (event: HandlerEvent, context: HandlerContext) => {
       phone: data.phone,
       reason: data.reason,
       twentyPersonId: twentyResult.personId,
-      twentyNoteId: noteResult?.noteId
+      twentyNoteId: noteResult?.noteId,
+      newsletter: data.newsletter
     });
 
     const responseBody = {
