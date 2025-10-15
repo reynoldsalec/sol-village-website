@@ -1,5 +1,16 @@
 import type { Handler, HandlerEvent, HandlerContext } from '@netlify/functions';
 
+// Type declaration for multipart module
+declare const multipart: {
+  parse(body: string, boundary: string): Array<{
+    name?: string;
+    data: Buffer;
+  }>;
+};
+
+// Import multipart with type assertion
+const multipartParser = require('multipart') as typeof multipart;
+
 interface FormData {
   firstName: string;
   lastName: string;
@@ -201,7 +212,7 @@ Source: Sol Village Website Interest List Form`;
   }
 }
 
-export const handler: Handler = async (event: HandlerEvent, context: HandlerContext) => {
+export const handler = async (event: HandlerEvent, context: HandlerContext) => {
   // Add comprehensive debugging
   console.log('=== FUNCTION INVOCATION START ===');
   console.log('HTTP Method:', event.httpMethod);
@@ -211,6 +222,20 @@ export const handler: Handler = async (event: HandlerEvent, context: HandlerCont
   console.log('- TWENTY_API_KEY exists:', !!process.env.TWENTY_API_KEY);
   console.log('- TWENTY_API_KEY length:', process.env.TWENTY_API_KEY?.length || 0);
   console.log('- TWENTY_API_URL:', process.env.TWENTY_API_URL || 'NOT SET');
+
+  // Handle CORS preflight requests
+  if (event.httpMethod === 'OPTIONS') {
+    return {
+      statusCode: 200,
+      headers: {
+        'Content-Type': 'text/plain',
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Headers': 'Content-Type',
+        'Access-Control-Allow-Methods': 'POST, OPTIONS'
+      },
+      body: ''
+    };
+  }
 
   // Only allow POST requests
   if (event.httpMethod !== 'POST') {
@@ -226,19 +251,6 @@ export const handler: Handler = async (event: HandlerEvent, context: HandlerCont
         success: false,
         error: 'Method not allowed'
       })
-    };
-  }
-
-  // Handle CORS preflight requests
-  if (event.httpMethod === 'OPTIONS') {
-    return {
-      statusCode: 200,
-      headers: {
-        'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Headers': 'Content-Type',
-        'Access-Control-Allow-Methods': 'POST, OPTIONS'
-      },
-      body: ''
     };
   }
 
@@ -264,9 +276,39 @@ export const handler: Handler = async (event: HandlerEvent, context: HandlerCont
         newsletter: jsonData.newsletter || undefined,
         privacy: jsonData.privacy
       };
+    } else if (contentType.includes('multipart/form-data')) {
+      console.log('Processing multipart form data');
+      // Handle multipart form data
+      const boundary = contentType.split('boundary=')[1];
+      if (!boundary) {
+        throw new Error('No boundary found in multipart data');
+      }
+      
+      const parts = multipartParser.parse(event.body || '', boundary);
+      console.log('Multipart parts:', parts);
+      
+      const formFields: Record<string, string> = {};
+      for (const part of parts) {
+        if (part.name && part.data) {
+          formFields[part.name] = part.data.toString();
+        }
+      }
+      
+      console.log('Parsed form fields:', formFields);
+      
+      data = {
+        firstName: formFields.firstName || '',
+        lastName: formFields.lastName || '',
+        email: formFields.email || '',
+        phone: formFields.phone || undefined,
+        reason: formFields.reason || undefined,
+        message: formFields.message || undefined,
+        newsletter: formFields.newsletter || undefined,
+        privacy: formFields.privacy || ''
+      };
     } else {
-      console.log('Processing form data');
-      // Handle form data
+      console.log('Processing URL-encoded form data');
+      // Handle URL-encoded form data
       const formData = new URLSearchParams(event.body || '');
       console.log('Form data entries:', Array.from(formData.entries()));
       data = {
