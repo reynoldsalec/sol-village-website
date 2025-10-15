@@ -14,7 +14,10 @@ async function parseMultipartFormData(event: HandlerEvent): Promise<Record<strin
     busboy.on('finish', () => resolve(formFields));
     busboy.on('error', (err: Error) => reject(err));
     
-    busboy.write(event.body, 'binary');
+    // Netlify Functions provides body as base64-encoded string
+    // We need to decode it to binary before writing to Busboy
+    const bodyBuffer = Buffer.from(event.body || '', 'base64');
+    busboy.write(bodyBuffer);
     busboy.end();
   });
 }
