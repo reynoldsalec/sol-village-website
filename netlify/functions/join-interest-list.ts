@@ -1,15 +1,69 @@
 import type { Handler, HandlerEvent, HandlerContext } from '@netlify/functions';
+import * as Busboy from 'busboy';
 
-// Type declaration for multipart module
-declare const multipart: {
-  parse(body: string, boundary: string): Array<{
-    name?: string;
-    data: Buffer;
-  }>;
-};
+// Helper function to parse multipart form data
+async function parseMultipartFormData(event: HandlerEvent): Promise<Record<string, string>> {
+  return new Promise((resolve, reject) => {
+    const formFields: Record<string, string> = {};
+    const busboy = Busboy.default({ headers: event.headers });
+    
+    busboy.on('field', (fieldname: string, value: string) => {
+      formFields[fieldname] = value;
+    });
+    
+    busboy.on('finish', () => resolve(formFields));
+    busboy.on('error', (err: Error) => reject(err));
+    
+    busboy.write(event.body, 'binary');
+    busboy.end();
+  });
+}
 
-// Import multipart with type assertion
-const multipartParser = require('multipart') as typeof multipart;
+// Helper function to normalize form data to FormData interface
+function normalizeFormData(rawData: Record<string, any>): FormData {
+  return {
+    firstName: rawData.firstName || '',
+    lastName: rawData.lastName || '',
+    email: rawData.email || '',
+    phone: rawData.phone || undefined,
+    reason: rawData.reason || undefined,
+    message: rawData.message || undefined,
+    newsletter: rawData.newsletter || undefined,
+    privacy: rawData.privacy || ''
+  };
+}
+
+// Unified function to parse any form data type
+async function parseFormData(event: HandlerEvent): Promise<FormData> {
+  const contentType = event.headers['content-type'] || '';
+  let rawData: Record<string, any>;
+  
+  if (contentType.includes('application/json')) {
+    console.log('Processing JSON data');
+    rawData = JSON.parse(event.body || '{}');
+  } else if (contentType.includes('multipart/form-data')) {
+    console.log('Processing multipart form data with Busboy');
+    rawData = await parseMultipartFormData(event);
+    console.log('Parsed form fields:', rawData);
+  } else {
+    console.log('Processing URL-encoded form data');
+    const formData = new URLSearchParams(event.body || '');
+    console.log('Form data entries:', Array.from(formData.entries()));
+    
+    rawData = {
+      firstName: formData.get('firstName'),
+      lastName: formData.get('lastName'),
+      email: formData.get('email'),
+      phone: formData.get('phone'),
+      reason: formData.get('reason'),
+      message: formData.get('message'),
+      newsletter: formData.get('newsletter'),
+      privacy: formData.get('privacy')
+    };
+  }
+
+  return normalizeFormData(rawData);
+}
 
 interface FormData {
   firstName: string;
@@ -259,70 +313,8 @@ export const handler = async (event: HandlerEvent, context: HandlerContext) => {
     console.log('Content-Type:', contentType);
     console.log('Raw body:', event.body);
     
-    let data: FormData;
-    
-    if (contentType.includes('application/json')) {
-      console.log('Processing JSON data');
-      // Handle JSON data
-      const jsonData = JSON.parse(event.body || '{}');
-      console.log('Parsed JSON data:', JSON.stringify(jsonData, null, 2));
-      data = {
-        firstName: jsonData.firstName,
-        lastName: jsonData.lastName,
-        email: jsonData.email,
-        phone: jsonData.phone || undefined,
-        reason: jsonData.reason || undefined,
-        message: jsonData.message || undefined,
-        newsletter: jsonData.newsletter || undefined,
-        privacy: jsonData.privacy
-      };
-    } else if (contentType.includes('multipart/form-data')) {
-      console.log('Processing multipart form data');
-      // Handle multipart form data
-      const boundary = contentType.split('boundary=')[1];
-      if (!boundary) {
-        throw new Error('No boundary found in multipart data');
-      }
-      
-      const parts = multipartParser.parse(event.body || '', boundary);
-      console.log('Multipart parts:', parts);
-      
-      const formFields: Record<string, string> = {};
-      for (const part of parts) {
-        if (part.name && part.data) {
-          formFields[part.name] = part.data.toString();
-        }
-      }
-      
-      console.log('Parsed form fields:', formFields);
-      
-      data = {
-        firstName: formFields.firstName || '',
-        lastName: formFields.lastName || '',
-        email: formFields.email || '',
-        phone: formFields.phone || undefined,
-        reason: formFields.reason || undefined,
-        message: formFields.message || undefined,
-        newsletter: formFields.newsletter || undefined,
-        privacy: formFields.privacy || ''
-      };
-    } else {
-      console.log('Processing URL-encoded form data');
-      // Handle URL-encoded form data
-      const formData = new URLSearchParams(event.body || '');
-      console.log('Form data entries:', Array.from(formData.entries()));
-      data = {
-        firstName: formData.get('firstName') || '',
-        lastName: formData.get('lastName') || '',
-        email: formData.get('email') || '',
-        phone: formData.get('phone') || undefined,
-        reason: formData.get('reason') || undefined,
-        message: formData.get('message') || undefined,
-        newsletter: formData.get('newsletter') || undefined,
-        privacy: formData.get('privacy') || ''
-      };
-    }
-    
+    // Parse form data using unified function
+    const data = await parseFormData(event);
     console.log('Processed form data:', JSON.stringify(data, null, 2));
 
     // Validate required fields
