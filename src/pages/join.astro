@@ -29,12 +29,14 @@ const heroImage = 'https://images.unsplash.com/photo-1560440021-33c98b67dc67?aut
 
 		<section>
 
-			<form class="signup-form" method="POST" action="/api/join-interest-list">
+			<form class="signup-form" id="interest-form" method="POST" action="/api/join-interest-list">
 				<h2>Join Our Interest List</h2>
 				<p class="form-description">
 					We'll keep you updated on our progress and let you know about upcoming opportunities. 
 					We respect your privacy and won't share your information.
 				</p>
+
+				<div id="form-message" class="form-message" style="display: none;"></div>
 
 				<div class="form-grid">
 					<div class="field-group">
@@ -93,12 +95,62 @@ const heroImage = 'https://images.unsplash.com/photo-1560440021-33c98b67dc67?aut
 					</div>
 				</div>
 
-				<button type="submit" class="cta-primary">Join the Interest List</button>
+				<button type="submit" class="cta-primary" id="submit-btn">Join the Interest List</button>
 
 				<p class="form-note">
 					Have questions? Feel free to <a href="mailto:hello@soltinycohousing.org">email us directly</a>.
 				</p>
 			</form>
+		</section>
+
+		<script>
+			document.getElementById('interest-form').addEventListener('submit', async function(e) {
+				e.preventDefault();
+				
+				const form = e.target;
+				const submitBtn = document.getElementById('submit-btn');
+				const messageDiv = document.getElementById('form-message');
+				
+				// Show loading state
+				submitBtn.textContent = 'Joining...';
+				submitBtn.disabled = true;
+				messageDiv.style.display = 'none';
+				
+				try {
+					const formData = new FormData(form);
+					const response = await fetch('/api/join-interest-list', {
+						method: 'POST',
+						body: formData
+					});
+					
+					const result = await response.json();
+					
+					if (result.success) {
+						// Show success message
+						messageDiv.className = 'form-message success';
+						messageDiv.textContent = result.message || 'Thank you for joining our interest list!';
+						messageDiv.style.display = 'block';
+						
+						// Reset form
+						form.reset();
+					} else {
+						// Show error message
+						messageDiv.className = 'form-message error';
+						messageDiv.textContent = result.error || 'Something went wrong. Please try again.';
+						messageDiv.style.display = 'block';
+					}
+				} catch (error) {
+					// Show error message
+					messageDiv.className = 'form-message error';
+					messageDiv.textContent = 'Something went wrong. Please try again.';
+					messageDiv.style.display = 'block';
+				} finally {
+					// Reset button state
+					submitBtn.textContent = 'Join the Interest List';
+					submitBtn.disabled = false;
+				}
+			});
+		</script>
 		</section>
 	</main>
 </Layout>
@@ -308,6 +360,26 @@ const heroImage = 'https://images.unsplash.com/photo-1560440021-33c98b67dc67?aut
 
 	.form-note a:hover {
 		color: #2c4531;
+	}
+
+	.form-message {
+		padding: 16px 20px;
+		border-radius: 12px;
+		margin-bottom: 24px;
+		font-weight: 500;
+		text-align: center;
+	}
+
+	.form-message.success {
+		background: rgba(58, 90, 64, 0.1);
+		color: #2c4531;
+		border: 1px solid rgba(58, 90, 64, 0.2);
+	}
+
+	.form-message.error {
+		background: rgba(220, 38, 38, 0.1);
+		color: #dc2626;
+		border: 1px solid rgba(220, 38, 38, 0.2);
 	}
 
 	@media (max-width: 768px) {
