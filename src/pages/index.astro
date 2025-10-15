@@ -2,11 +2,6 @@
 import Layout from '../layouts/Layout.astro';
 
 import HeroImage from '../assets/sol-cohousing-hero.webp';
-
-// Use the base path for GitHub Pages
-const base = '/sol-village-website';
-const visionUrl = base + '/vision';
-const joinUrl = base + '/join';
 ---
 
 <Layout title="Sol Village | Affordable Living. Together.">
@@ -21,8 +16,8 @@ const joinUrl = base + '/join';
 					housing in Nevada County.
 				</p>
 				<div class="cta-group">
-					<a class="cta-primary" href={visionUrl}>Discover our vision</a>
-					<a class="cta-secondary" href={joinUrl}>Join the interest list</a>
+					<a class="cta-primary" href="/vision">Discover our vision</a>
+					<a class="cta-secondary" href="/join">Join the interest list</a>
 				</div>
 			</div>
 			<figure class="hero-visual">
@@ -72,7 +67,7 @@ const joinUrl = base + '/join';
 				that housing can be both attainable and inspiring. Let’s build a neighborhood where
 				everyone belongs.
 			</p>
-			<a class="cta-primary" href={joinUrl}>Join the interest list</a>
+			<a class="cta-primary" href="/join">Join the interest list</a>
 		</section>
 	</main>
 </Layout>
