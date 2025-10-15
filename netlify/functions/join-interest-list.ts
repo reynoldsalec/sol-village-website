@@ -196,7 +196,7 @@ async function createPersonInTwentyCRM(formData: FormData): Promise<{ success: b
     
     return {
       success: true,
-      personId: result.id
+      personId: result.data.createPerson.id
     };
   } catch (error) {
     console.error('ERROR creating person in TwentyCRM:');
