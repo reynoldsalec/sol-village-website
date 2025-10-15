@@ -44,10 +44,16 @@ interface TwentyNoteData {
 }
 
 async function createPersonInTwentyCRM(formData: FormData): Promise<{ success: boolean; personId?: string; error?: string }> {
+  console.log('=== CREATING PERSON IN TWENTYCRM ===');
   const twentyApiKey = process.env.TWENTY_API_KEY;
   const twentyApiUrl = process.env.TWENTY_API_URL || 'https://api.twenty.com/rest';
 
+  console.log('TwentyCRM API URL:', twentyApiUrl);
+  console.log('API Key exists:', !!twentyApiKey);
+  console.log('API Key length:', twentyApiKey?.length || 0);
+
   if (!twentyApiKey) {
+    console.error('ERROR: TwentyCRM API key not configured');
     throw new Error('TwentyCRM API key not configured');
   }
 
@@ -91,6 +97,9 @@ async function createPersonInTwentyCRM(formData: FormData): Promise<{ success: b
     }
   };
 
+  console.log('TwentyCRM Person Data:', JSON.stringify(twentyPersonData, null, 2));
+  console.log('Making request to:', `${twentyApiUrl}/people`);
+
   try {
     const response = await fetch(`${twentyApiUrl}/people`, {
       method: 'POST',
@@ -101,19 +110,30 @@ async function createPersonInTwentyCRM(formData: FormData): Promise<{ success: b
       body: JSON.stringify(twentyPersonData)
     });
 
+    console.log('TwentyCRM API Response Status:', response.status);
+    console.log('TwentyCRM API Response Headers:', JSON.stringify(Object.fromEntries(response.headers.entries()), null, 2));
+
     if (!response.ok) {
       const errorText = await response.text();
-      console.error('TwentyCRM API error:', response.status, errorText);
+      console.error('TwentyCRM API ERROR - Status:', response.status);
+      console.error('TwentyCRM API ERROR - Response:', errorText);
       throw new Error(`TwentyCRM API error: ${response.status} ${errorText}`);
     }
 
     const result = await response.json();
+    console.log('TwentyCRM API SUCCESS - Response:', JSON.stringify(result, null, 2));
+    console.log('Created person with ID:', result.id);
+    
     return {
       success: true,
       personId: result.id
     };
   } catch (error) {
-    console.error('Error creating person in TwentyCRM:', error);
+    console.error('ERROR creating person in TwentyCRM:');
+    console.error('Error type:', typeof error);
+    console.error('Error message:', error instanceof Error ? error.message : 'Unknown error');
+    console.error('Full error:', error);
+    
     return {
       success: false,
       error: error instanceof Error ? error.message : 'Unknown error'
@@ -182,6 +202,16 @@ Source: Sol Village Website Interest List Form`;
 }
 
 export const handler: Handler = async (event: HandlerEvent, context: HandlerContext) => {
+  // Add comprehensive debugging
+  console.log('=== FUNCTION INVOCATION START ===');
+  console.log('HTTP Method:', event.httpMethod);
+  console.log('Headers:', JSON.stringify(event.headers, null, 2));
+  console.log('Body length:', event.body?.length || 0);
+  console.log('Environment variables check:');
+  console.log('- TWENTY_API_KEY exists:', !!process.env.TWENTY_API_KEY);
+  console.log('- TWENTY_API_KEY length:', process.env.TWENTY_API_KEY?.length || 0);
+  console.log('- TWENTY_API_URL:', process.env.TWENTY_API_URL || 'NOT SET');
+
   // Only allow POST requests
   if (event.httpMethod !== 'POST') {
     return {
@@ -214,12 +244,16 @@ export const handler: Handler = async (event: HandlerEvent, context: HandlerCont
 
   try {
     const contentType = event.headers['content-type'] || '';
+    console.log('Content-Type:', contentType);
+    console.log('Raw body:', event.body);
     
     let data: FormData;
     
     if (contentType.includes('application/json')) {
+      console.log('Processing JSON data');
       // Handle JSON data
       const jsonData = JSON.parse(event.body || '{}');
+      console.log('Parsed JSON data:', JSON.stringify(jsonData, null, 2));
       data = {
         firstName: jsonData.firstName,
         lastName: jsonData.lastName,
@@ -231,8 +265,10 @@ export const handler: Handler = async (event: HandlerEvent, context: HandlerCont
         privacy: jsonData.privacy
       };
     } else {
+      console.log('Processing form data');
       // Handle form data
       const formData = new URLSearchParams(event.body || '');
+      console.log('Form data entries:', Array.from(formData.entries()));
       data = {
         firstName: formData.get('firstName') || '',
         lastName: formData.get('lastName') || '',
@@ -244,6 +280,8 @@ export const handler: Handler = async (event: HandlerEvent, context: HandlerCont
         privacy: formData.get('privacy') || ''
       };
     }
+    
+    console.log('Processed form data:', JSON.stringify(data, null, 2));
 
     // Validate required fields
     if (!data.firstName || !data.lastName || !data.email || !data.privacy) {
@@ -277,26 +315,40 @@ export const handler: Handler = async (event: HandlerEvent, context: HandlerCont
     }
 
     // Create person in TwentyCRM
+    console.log('=== CALLING TWENTYCRM PERSON CREATION ===');
     const twentyResult = await createPersonInTwentyCRM(data);
+    console.log('TwentyCRM Person Creation Result:', JSON.stringify(twentyResult, null, 2));
 
     if (!twentyResult.success) {
-      console.error('Failed to create person in TwentyCRM:', twentyResult.error);
+      console.error('FAILED to create person in TwentyCRM:', twentyResult.error);
       // Still return success to user, but log the error
       // You might want to implement fallback storage or retry logic
+    } else {
+      console.log('SUCCESS: Person created in TwentyCRM with ID:', twentyResult.personId);
     }
 
     // Create note in TwentyCRM if person was created successfully and message exists
     let noteResult = null;
     if (twentyResult.success && twentyResult.personId && data.message) {
+      console.log('=== CALLING TWENTYCRM NOTE CREATION ===');
+      console.log('Person ID for note:', twentyResult.personId);
+      console.log('Message for note:', data.message);
+      
       noteResult = await createNoteInTwentyCRM(twentyResult.personId, data.message, data);
+      console.log('TwentyCRM Note Creation Result:', JSON.stringify(noteResult, null, 2));
       
       if (!noteResult.success) {
-        console.error('Failed to create note in TwentyCRM:', noteResult.error);
+        console.error('FAILED to create note in TwentyCRM:', noteResult.error);
         // Note: We don't fail the entire request if note creation fails
+      } else {
+        console.log('SUCCESS: Note created in TwentyCRM with ID:', noteResult.noteId);
       }
+    } else {
+      console.log('SKIPPING note creation - Person success:', twentyResult.success, 'Person ID:', twentyResult.personId, 'Message exists:', !!data.message);
     }
 
     // Log the form submission for debugging
+    console.log('=== FINAL SUMMARY ===');
     console.log('Form submission received:', {
       name: `${data.firstName} ${data.lastName}`,
       email: data.email,
@@ -306,6 +358,16 @@ export const handler: Handler = async (event: HandlerEvent, context: HandlerCont
       twentyNoteId: noteResult?.noteId
     });
 
+    const responseBody = {
+      success: true,
+      message: 'Thank you for joining our interest list! We\'ll be in touch soon.',
+      personId: twentyResult.personId,
+      noteId: noteResult?.noteId
+    };
+
+    console.log('Returning response:', JSON.stringify(responseBody, null, 2));
+    console.log('=== FUNCTION INVOCATION END ===');
+
     // Return success response
     return {
       statusCode: 200,
@@ -313,12 +375,7 @@ export const handler: Handler = async (event: HandlerEvent, context: HandlerCont
         'Content-Type': 'application/json',
         'Access-Control-Allow-Origin': '*'
       },
-      body: JSON.stringify({
-        success: true,
-        message: 'Thank you for joining our interest list! We\'ll be in touch soon.',
-        personId: twentyResult.personId,
-        noteId: noteResult?.noteId
-      })
+      body: JSON.stringify(responseBody)
     };
 
   } catch (error) {
