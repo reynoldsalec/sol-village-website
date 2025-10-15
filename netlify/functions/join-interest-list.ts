@@ -1,6 +1,4 @@
-import type { APIRoute } from 'astro';
-
-export const prerender = false;
+import type { Handler, HandlerEvent, HandlerContext } from '@netlify/functions';
 
 interface FormData {
   firstName: string;
@@ -46,8 +44,8 @@ interface TwentyNoteData {
 }
 
 async function createPersonInTwentyCRM(formData: FormData): Promise<{ success: boolean; personId?: string; error?: string }> {
-  const twentyApiKey = import.meta.env.TWENTY_API_KEY;
-  const twentyApiUrl = import.meta.env.TWENTY_API_URL || 'https://api.twenty.com/rest';
+  const twentyApiKey = process.env.TWENTY_API_KEY;
+  const twentyApiUrl = process.env.TWENTY_API_URL || 'https://api.twenty.com/rest';
 
   if (!twentyApiKey) {
     throw new Error('TwentyCRM API key not configured');
@@ -124,8 +122,8 @@ async function createPersonInTwentyCRM(formData: FormData): Promise<{ success: b
 }
 
 async function createNoteInTwentyCRM(personId: string, message: string, formData: FormData): Promise<{ success: boolean; noteId?: string; error?: string }> {
-  const twentyApiKey = import.meta.env.TWENTY_API_KEY;
-  const twentyApiUrl = import.meta.env.TWENTY_API_URL || 'https://api.twenty.com/rest';
+  const twentyApiKey = process.env.TWENTY_API_KEY;
+  const twentyApiUrl = process.env.TWENTY_API_URL || 'https://api.twenty.com/rest';
 
   if (!twentyApiKey) {
     throw new Error('TwentyCRM API key not configured');
@@ -183,15 +181,45 @@ Source: Sol Village Website Interest List Form`;
   }
 }
 
-export const POST: APIRoute = async ({ request }) => {
+export const handler: Handler = async (event: HandlerEvent, context: HandlerContext) => {
+  // Only allow POST requests
+  if (event.httpMethod !== 'POST') {
+    return {
+      statusCode: 405,
+      headers: {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Headers': 'Content-Type',
+        'Access-Control-Allow-Methods': 'POST, OPTIONS'
+      },
+      body: JSON.stringify({
+        success: false,
+        error: 'Method not allowed'
+      })
+    };
+  }
+
+  // Handle CORS preflight requests
+  if (event.httpMethod === 'OPTIONS') {
+    return {
+      statusCode: 200,
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Headers': 'Content-Type',
+        'Access-Control-Allow-Methods': 'POST, OPTIONS'
+      },
+      body: ''
+    };
+  }
+
   try {
-    const contentType = request.headers.get('content-type') || '';
+    const contentType = event.headers['content-type'] || '';
     
     let data: FormData;
     
     if (contentType.includes('application/json')) {
       // Handle JSON data
-      const jsonData = await request.json();
+      const jsonData = JSON.parse(event.body || '{}');
       data = {
         firstName: jsonData.firstName,
         lastName: jsonData.lastName,
@@ -204,44 +232,48 @@ export const POST: APIRoute = async ({ request }) => {
       };
     } else {
       // Handle form data
-      const formData = await request.formData();
+      const formData = new URLSearchParams(event.body || '');
       data = {
-        firstName: formData.get('firstName') as string,
-        lastName: formData.get('lastName') as string,
-        email: formData.get('email') as string,
-        phone: formData.get('phone') as string || undefined,
-        reason: formData.get('reason') as string || undefined,
-        message: formData.get('message') as string || undefined,
-        newsletter: formData.get('newsletter') as string || undefined,
-        privacy: formData.get('privacy') as string
+        firstName: formData.get('firstName') || '',
+        lastName: formData.get('lastName') || '',
+        email: formData.get('email') || '',
+        phone: formData.get('phone') || undefined,
+        reason: formData.get('reason') || undefined,
+        message: formData.get('message') || undefined,
+        newsletter: formData.get('newsletter') || undefined,
+        privacy: formData.get('privacy') || ''
       };
     }
 
     // Validate required fields
     if (!data.firstName || !data.lastName || !data.email || !data.privacy) {
-      return new Response(JSON.stringify({
-        success: false,
-        error: 'Missing required fields'
-      }), {
-        status: 400,
+      return {
+        statusCode: 400,
         headers: {
-          'Content-Type': 'application/json'
-        }
-      });
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': '*'
+        },
+        body: JSON.stringify({
+          success: false,
+          error: 'Missing required fields'
+        })
+      };
     }
 
     // Validate email format
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(data.email)) {
-      return new Response(JSON.stringify({
-        success: false,
-        error: 'Invalid email format'
-      }), {
-        status: 400,
+      return {
+        statusCode: 400,
         headers: {
-          'Content-Type': 'application/json'
-        }
-      });
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': '*'
+        },
+        body: JSON.stringify({
+          success: false,
+          error: 'Invalid email format'
+        })
+      };
     }
 
     // Create person in TwentyCRM
@@ -275,29 +307,33 @@ export const POST: APIRoute = async ({ request }) => {
     });
 
     // Return success response
-    return new Response(JSON.stringify({
-      success: true,
-      message: 'Thank you for joining our interest list! We\'ll be in touch soon.',
-      personId: twentyResult.personId,
-      noteId: noteResult?.noteId
-    }), {
-      status: 200,
+    return {
+      statusCode: 200,
       headers: {
-        'Content-Type': 'application/json'
-      }
-    });
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*'
+      },
+      body: JSON.stringify({
+        success: true,
+        message: 'Thank you for joining our interest list! We\'ll be in touch soon.',
+        personId: twentyResult.personId,
+        noteId: noteResult?.noteId
+      })
+    };
 
   } catch (error) {
     console.error('Error processing form submission:', error);
     
-    return new Response(JSON.stringify({
-      success: false,
-      error: 'An unexpected error occurred. Please try again later.'
-    }), {
-      status: 500,
+    return {
+      statusCode: 500,
       headers: {
-        'Content-Type': 'application/json'
-      }
-    });
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*'
+      },
+      body: JSON.stringify({
+        success: false,
+        error: 'An unexpected error occurred. Please try again later.'
+      })
+    };
   }
 };

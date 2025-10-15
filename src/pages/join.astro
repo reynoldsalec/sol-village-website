@@ -29,7 +29,7 @@ const heroImage = 'https://images.unsplash.com/photo-1560440021-33c98b67dc67?aut
 
 		<section>
 
-			<form class="signup-form" id="interest-form" method="POST" action="/api/join-interest-list">
+			<form class="signup-form" id="interest-form" method="POST" action="/.netlify/functions/join-interest-list">
 				<h2>Join Our Interest List</h2>
 				<p class="form-description">
 					We'll keep you updated on our progress and let you know about upcoming opportunities. 
@@ -118,7 +118,7 @@ const heroImage = 'https://images.unsplash.com/photo-1560440021-33c98b67dc67?aut
 				
 				try {
 					const formData = new FormData(form);
-					const response = await fetch('/api/join-interest-list', {
+					const response = await fetch('/.netlify/functions/join-interest-list', {
 						method: 'POST',
 						body: formData
 					});
