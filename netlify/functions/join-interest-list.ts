@@ -190,7 +190,7 @@ async function createPersonInTwentyCRM(formData: FormData): Promise<{ success: b
 
     const result = await response.json();
     console.log('TwentyCRM API SUCCESS - Response:', JSON.stringify(result, null, 2));
-    console.log('Created person with ID:', result.id);
+    console.log('Created person with ID:', result.data.createPerson.id);
     
     return {
       success: true,
