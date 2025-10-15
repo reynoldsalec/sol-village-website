@@ -108,8 +108,12 @@ interface TwentyPersonData {
 }
 
 interface TwentyNoteData {
-  body: string;
-  personId: string;
+  bodyV2: {
+    markdown: string;
+  };
+  noteTargets: Array<{
+    personId: string;
+  }>;
 }
 
 async function createPersonInTwentyCRM(formData: FormData): Promise<{ success: boolean; personId?: string; error?: string }> {
@@ -237,9 +241,18 @@ ${message || 'No additional information provided'}
 Source: Sol Village Website Interest List Form`;
 
   const twentyNoteData: TwentyNoteData = {
-    body: noteBody,
-    personId: personId
+    bodyV2: {
+      markdown: noteBody
+    },
+    noteTargets: [
+      {
+        personId: personId
+      }
+    ]
   };
+
+  console.log('TwentyCRM Note Data:', JSON.stringify(twentyNoteData, null, 2));
+  console.log('Making request to:', `${twentyApiUrl}/notes`);
 
   try {
     const response = await fetch(`${twentyApiUrl}/notes`, {
