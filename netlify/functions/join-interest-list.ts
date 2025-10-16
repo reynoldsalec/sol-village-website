@@ -24,6 +24,9 @@ async function parseMultipartFormData(event: HandlerEvent): Promise<Record<strin
 
 // Helper function to normalize form data to FormData interface
 function normalizeFormData(rawData: Record<string, any>): FormData {
+  // Map reason to interests using the mapping function
+  const interests = mapReasonToInterests(rawData.reason);
+  
   return {
     firstName: rawData.firstName || '',
     lastName: rawData.lastName || '',
@@ -32,7 +35,8 @@ function normalizeFormData(rawData: Record<string, any>): FormData {
     reason: rawData.reason || undefined,
     message: rawData.message || undefined,
     newsletter: rawData.newsletter || undefined,
-    privacy: rawData.privacy || ''
+    privacy: rawData.privacy || '',
+    interests: interests
   };
 }
 
@@ -77,6 +81,7 @@ interface FormData {
   message?: string;
   newsletter?: string;
   privacy: string;
+  interests?: string[];
 }
 
 interface TwentyPersonData {
@@ -105,8 +110,25 @@ interface TwentyPersonData {
     lastName: string;
   };
   subscribedToUpdates: boolean;
+  interests?: string[];
 }
 
+// Function to map form reason values to TwentyCRM interests
+function mapReasonToInterests(reason?: string): string[] {
+  if (!reason) return [];
+  
+  const interestMap: Record<string, string[]> = {
+    'affordability': ['VILLAGE_RESIDENT'],
+    'community': ['VILLAGE_RESIDENT'],
+    'sustainability': ['GENERAL_INTEREST'],
+    'tiny-homes': ['GENERAL_INTEREST'],
+    'investment': ['VILLAGE_INVESTOR'],
+    'living': ['VILLAGE_RESIDENT'],
+    'other': ['GENERAL_INTEREST']
+  };
+  
+  return interestMap[reason] || [];
+}
 
 async function createPersonInTwentyCRM(formData: FormData): Promise<{ success: boolean; personId?: string; error?: string }> {
   console.log('=== CREATING PERSON IN TWENTYCRM ===');
@@ -160,9 +182,12 @@ async function createPersonInTwentyCRM(formData: FormData): Promise<{ success: b
       firstName: formData.firstName,
       lastName: formData.lastName
     },
-    subscribedToUpdates: formData.newsletter === 'on'
+    subscribedToUpdates: formData.newsletter === 'on',
+    interests: formData.interests || []
   };
 
+  console.log('Form reason:', formData.reason);
+  console.log('Mapped interests:', formData.interests);
   console.log('TwentyCRM Person Data:', JSON.stringify(twentyPersonData, null, 2));
   console.log('Making request to:', `${twentyApiUrl}/people`);
 
@@ -216,15 +241,12 @@ async function createNoteInTwentyCRM(personId: string, message: string, formData
   }
 
   // Create a comprehensive note with all form information
-  const noteBody = `Interest List Submission - ${new Date().toLocaleDateString()}
+  const noteBody = ` ${new Date().toLocaleDateString()}
 
-## Interest Details:
-${formData.reason ? `- Primary Interest: ${formData.reason}` : ''}
+${formData.reason ? `Primary Interest: ${formData.reason}` : ''}
 
-## Message:
-${message || 'No additional information provided'}
-
-Source: Sol Village Website Interest List Form`;
+Message: ${message || 'No additional information provided'}
+`;
 
   // Create note without noteTargets first
   const twentyNoteData = {
