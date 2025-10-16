@@ -107,14 +107,6 @@ interface TwentyPersonData {
   subscribedToUpdates: boolean;
 }
 
-interface TwentyNoteData {
-  bodyV2: {
-    markdown: string;
-  };
-  noteTargets: Array<{
-    personId: string;
-  }>;
-}
 
 async function createPersonInTwentyCRM(formData: FormData): Promise<{ success: boolean; personId?: string; error?: string }> {
   console.log('=== CREATING PERSON IN TWENTYCRM ===');
@@ -226,29 +218,20 @@ async function createNoteInTwentyCRM(personId: string, message: string, formData
   // Create a comprehensive note with all form information
   const noteBody = `Interest List Submission - ${new Date().toLocaleDateString()}
 
-Contact Information:
-- Name: ${formData.firstName} ${formData.lastName}
-- Email: ${formData.email}
-${formData.phone ? `- Phone: ${formData.phone}` : ''}
-
-Interest Details:
+## Interest Details:
 ${formData.reason ? `- Primary Interest: ${formData.reason}` : ''}
-${formData.newsletter ? '- Subscribed to newsletter updates' : '- Did not subscribe to newsletter'}
 
-Additional Information:
+## Message:
 ${message || 'No additional information provided'}
 
 Source: Sol Village Website Interest List Form`;
 
-  const twentyNoteData: TwentyNoteData = {
+  // Create note without noteTargets first
+  const twentyNoteData = {
+    title: 'Interest List Submission',
     bodyV2: {
       markdown: noteBody
-    },
-    noteTargets: [
-      {
-        personId: personId
-      }
-    ]
+    }
   };
 
   console.log('TwentyCRM Note Data:', JSON.stringify(twentyNoteData, null, 2));
@@ -271,12 +254,73 @@ Source: Sol Village Website Interest List Form`;
     }
 
     const result = await response.json();
+    const noteId = result.data?.createNote?.id || result.id;
+    
+    if (!noteId) {
+      throw new Error('No note ID returned from TwentyCRM API');
+    }
+
+    // Now create the note target to link the note to the person
+    const noteTargetResult = await createNoteTargetInTwentyCRM(noteId, personId);
+    
+    if (!noteTargetResult.success) {
+      console.error('Failed to create note target:', noteTargetResult.error);
+      // Note: We still return success for the note creation, but log the target error
+    }
+
     return {
       success: true,
-      noteId: result.id
+      noteId: noteId
     };
   } catch (error) {
     console.error('Error creating note in TwentyCRM:', error);
+    return {
+      success: false,
+      error: error instanceof Error ? error.message : 'Unknown error'
+    };
+  }
+}
+
+async function createNoteTargetInTwentyCRM(noteId: string, personId: string): Promise<{ success: boolean; error?: string }> {
+  const twentyApiKey = process.env.TWENTY_API_KEY;
+  const twentyApiUrl = process.env.TWENTY_API_URL || 'https://api.twenty.com/rest';
+
+  if (!twentyApiKey) {
+    throw new Error('TwentyCRM API key not configured');
+  }
+
+  const noteTargetData = {
+    noteId: noteId,
+    personId: personId
+  };
+
+  console.log('TwentyCRM Note Target Data:', JSON.stringify(noteTargetData, null, 2));
+  console.log('Making request to:', `${twentyApiUrl}/noteTargets`);
+
+  try {
+    const response = await fetch(`${twentyApiUrl}/noteTargets`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${twentyApiKey}`
+      },
+      body: JSON.stringify(noteTargetData)
+    });
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      console.error('TwentyCRM Note Targets API error:', response.status, errorText);
+      throw new Error(`TwentyCRM Note Targets API error: ${response.status} ${errorText}`);
+    }
+
+    const result = await response.json();
+    console.log('TwentyCRM Note Target Creation Success:', JSON.stringify(result, null, 2));
+    
+    return {
+      success: true
+    };
+  } catch (error) {
+    console.error('Error creating note target in TwentyCRM:', error);
     return {
       success: false,
       error: error instanceof Error ? error.message : 'Unknown error'
