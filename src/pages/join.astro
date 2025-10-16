@@ -1,36 +1,15 @@
 ---
 import Layout from '../layouts/Layout.astro';
-
-const heroImage = 'https://images.unsplash.com/photo-1560440021-33c98b67dc67?auto=format&fit=crop&w=1400&q=80';
 ---
 
 <Layout title="Join the Interest List | Sol Village">
 	<main class="page">
-		<section class="hero">
-			<div class="hero-copy">
-				<p class="eyebrow">Join our community</p>
-				<h1>Join the Interest List</h1>
-				<p class="tagline">Be part of something special</p>
-				<p class="lede">
-					Get early access to updates about Sol Village and be among the first to know when 
-					we're ready to welcome new residents. Join our growing community of forward-thinking individuals 
-					who believe in affordable, sustainable living.
-				</p>
-			</div>
-			<figure class="hero-visual">
-				<img
-					src={heroImage}
-					alt="Community garden with raised beds and people working together"
-					loading="eager"
-					decoding="async"
-				/>
-			</figure>
-		</section>
 
-		<section>
+
+		<section class="form-section">
 
 			<form class="signup-form" id="interest-form" method="POST" action="/.netlify/functions/join-interest-list">
-				<h2>Join Our Interest List</h2>
+				<h1>Join Our Interest List</h1>
 				<p class="form-description">
 					We'll keep you updated on our progress and let you know about upcoming opportunities. 
 					We respect your privacy and won't share your information.
@@ -211,66 +190,20 @@ const heroImage = 'https://images.unsplash.com/photo-1560440021-33c98b67dc67?aut
 		min-height: 100vh;
 		display: flex;
 		flex-direction: column;
-		gap: 80px;
-		padding: 160px clamp(24px, 5vw, 120px) 96px;
+		gap: 60px;
+		padding: 120px clamp(24px, 5vw, 120px) 96px;
 		box-sizing: border-box;
 	}
 
-	.hero {
-		display: grid;
-		gap: 48px;
-		align-items: center;
-		grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-	}
 
-	.hero-copy h1 {
-		margin: 0;
-		font-family: 'Playfair Display', Georgia, serif;
-		font-size: clamp(40px, 6vw, 72px);
-		letter-spacing: -0.02em;
-	}
 
-	.eyebrow {
-		margin: 0;
-		font-size: 14px;
-		font-weight: 600;
-		letter-spacing: 0.2em;
-		text-transform: uppercase;
-		color: #6b705c;
-	}
-
-	.tagline {
-		margin: 16px 0 24px;
-		font-size: clamp(22px, 3vw, 32px);
-		font-weight: 600;
-		color: #3a5a40;
-	}
-
-	.lede {
-		margin: 0 0 32px;
-		max-width: 620px;
-		font-size: 18px;
-		line-height: 1.65;
-		color: #424b3a;
-	}
-
-	.hero-visual {
-		position: relative;
-		margin: 0;
-	}
-
-	.hero-visual img {
+	.form-section {
+		max-width: 800px;
+		margin: 0 auto;
 		width: 100%;
-		display: block;
-		border-radius: 28px;
-		box-shadow: 0 24px 48px rgba(20, 34, 26, 0.3);
-		object-fit: cover;
-		aspect-ratio: 4 / 3;
 	}
 
 	.signup-form {
-		max-width: 800px;
-		margin: 0 auto;
 		padding: 48px clamp(24px, 8vw, 64px);
 		border-radius: 32px;
 		background: rgba(255, 255, 255, 0.95);
@@ -278,7 +211,7 @@ const heroImage = 'https://images.unsplash.com/photo-1560440021-33c98b67dc67?aut
 		backdrop-filter: blur(4px);
 	}
 
-	.signup-form h2 {
+	.signup-form h1 {
 		margin: 0 0 16px;
 		font-family: 'Playfair Display', Georgia, serif;
 		font-size: clamp(30px, 5vw, 44px);
@@ -557,8 +490,20 @@ const heroImage = 'https://images.unsplash.com/photo-1560440021-33c98b67dc67?aut
 
 	@media (max-width: 768px) {
 		.page {
-			gap: 60px;
-			padding-top: 128px;
+			gap: 40px;
+			padding-top: 100px;
+		}
+
+		.intro {
+			margin-bottom: 20px;
+		}
+
+		.intro h1 {
+			font-size: clamp(28px, 6vw, 40px);
+		}
+
+		.intro-text {
+			font-size: 16px;
 		}
 
 		.form-grid {
