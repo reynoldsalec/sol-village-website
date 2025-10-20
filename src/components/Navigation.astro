@@ -12,7 +12,7 @@ import SolLogo from '../assets/sol-village-logo.png';
 			<li><a href="/" class="nav-link">Home</a></li>
 			<li><a href="/vision" class="nav-link">Vision</a></li>
 			<li><a href="/investment" class="nav-link">Investment</a></li>
-			<li><a href="/join" class="nav-link">Join</a></li>
+			<li><a href="/join" class="nav-link nav-cta">Join</a></li>
 		</ul>
 	</div>
 </nav>
@@ -106,6 +106,26 @@ import SolLogo from '../assets/sol-village-logo.png';
 		font-weight: 600;
 	}
 
+	.nav-cta {
+		background: linear-gradient(135deg, #3a5a40, #a3b18a);
+		color: #fffef6 !important;
+		padding: 12px 20px !important;
+		border-radius: 999px;
+		font-weight: 600;
+		box-shadow: 0 8px 16px rgba(58, 90, 64, 0.25);
+		transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+	}
+
+	.nav-cta:hover {
+		transform: translateY(-2px);
+		box-shadow: 0 12px 20px rgba(58, 90, 64, 0.35);
+		color: #fffef6 !important;
+	}
+
+	.nav-cta::after {
+		display: none;
+	}
+
 	@media (max-width: 768px) {
 		.navigation {
 			padding: 0 24px;
@@ -117,6 +137,11 @@ import SolLogo from '../assets/sol-village-logo.png';
 		}
 
 		.nav-link {
+			font-size: 14px;
+		}
+
+		.nav-cta {
+			padding: 10px 16px !important;
 			font-size: 14px;
 		}
 
