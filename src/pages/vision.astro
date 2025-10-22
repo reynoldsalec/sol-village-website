@@ -414,6 +414,20 @@ import interiorsImage from '../assets/sol-cohousing-vision-demo-model.webp';
 		align-items: center;
 		justify-content: center;
 		overflow: hidden;
+		outline: none;
+		border: none;
+		background: none;
+	}
+	
+	.gantt-bar:focus {
+		outline: none;
+		box-shadow: none;
+	}
+	
+	.gantt-bar:active {
+		outline: none;
+		box-shadow: none;
+		background: none;
 	}
 
 	.gantt-bar-fill {
@@ -634,7 +648,6 @@ import interiorsImage from '../assets/sol-cohousing-vision-demo-model.webp';
 				// Add visual feedback
 				if (this.classList.contains('active')) {
 					this.style.zIndex = '10';
-					this.style.boxShadow = '0 12px 24px rgba(0, 0, 0, 0.2)';
 				} else {
 					this.style.zIndex = '1';
 					this.style.boxShadow = 'none';
@@ -748,14 +761,5 @@ import interiorsImage from '../assets/sol-cohousing-vision-demo-model.webp';
 		width: 100%;
 	}
 	
-	.gantt-bar.active .gantt-bar-fill {
-		transform: scale(1.1);
-		filter: brightness(1.2) saturate(1.3);
-		box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.3);
-	}
-	
-	.gantt-bar.active .gantt-bar-label {
-		transform: scale(1.15);
-		font-weight: 700;
-	}
+	/* Removed active state styling to prevent white background on click */
 </style>
