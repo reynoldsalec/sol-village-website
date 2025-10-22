@@ -110,13 +110,31 @@ import interiorsImage from '../assets/sol-cohousing-vision-demo-model.webp';
 			
 			<div class="gantt-chart">
 				<div class="gantt-header">
-					<div class="gantt-timeline">
-						<div class="timeline-year-marker">2025</div>
-						<div class="timeline-year-marker">2026</div>
-						<div class="timeline-year-marker">2027</div>
-						<div class="timeline-year-marker">2028</div>
-						<div class="timeline-year-marker">2029</div>
-						<div class="timeline-year-marker">2030</div>
+					<div class="timeline-grid">
+						<div class="timeline-cell">
+							<div class="timeline-year-marker">2025</div>
+							<div class="timeline-line"></div>
+						</div>
+						<div class="timeline-cell">
+							<div class="timeline-year-marker">2026</div>
+							<div class="timeline-line"></div>
+						</div>
+						<div class="timeline-cell">
+							<div class="timeline-year-marker">2027</div>
+							<div class="timeline-line"></div>
+						</div>
+						<div class="timeline-cell">
+							<div class="timeline-year-marker">2028</div>
+							<div class="timeline-line"></div>
+						</div>
+						<div class="timeline-cell">
+							<div class="timeline-year-marker">2029</div>
+							<div class="timeline-line"></div>
+						</div>
+						<div class="timeline-cell">
+							<div class="timeline-year-marker">2030</div>
+							<div class="timeline-line"></div>
+						</div>
 					</div>
 				</div>
 				
@@ -312,35 +330,44 @@ import interiorsImage from '../assets/sol-cohousing-vision-demo-model.webp';
 		background: linear-gradient(135deg, #3a5a40, #a3b18a);
 		color: white;
 		padding: 24px;
-		display: grid;
-		grid-template-columns: 300px 1fr;
-		gap: 24px;
-		align-items: center;
+		text-align: center;
 	}
 
-	.gantt-labels {
-		display: grid;
-		grid-template-columns: 1fr 1fr;
-		gap: 16px;
-		font-weight: 600;
-		font-size: 16px;
-	}
-
-	.gantt-timeline {
+	.timeline-grid {
 		display: grid;
 		grid-template-columns: repeat(6, 1fr);
-		gap: 8px;
-		text-align: center;
+		gap: 0;
+		position: relative;
+	}
+
+	.timeline-cell {
+		position: relative;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
 	}
 
 	.timeline-year-marker {
 		font-size: 14px;
 		font-weight: 500;
 		opacity: 0.9;
+		margin-bottom: 8px;
+	}
+
+	.timeline-line {
+		position: absolute;
+		top: 100%;
+		left: 50%;
+		transform: translateX(-50%);
+		width: 1px;
+		height: 500px;
+		background: rgba(58, 90, 64, 0.2);
+		z-index: 1;
 	}
 
 	.gantt-body {
 		padding: 24px;
+		position: relative;
 	}
 
 	.gantt-row {
@@ -370,10 +397,7 @@ import interiorsImage from '../assets/sol-cohousing-vision-demo-model.webp';
 	.gantt-bar-container {
 		position: relative;
 		height: 60px;
-		background: #f8f9fa;
-		border-radius: 12px;
-		overflow: hidden;
-		border: 2px solid #e9ecef;
+		z-index: 2;
 	}
 
 	.gantt-bar {
@@ -495,20 +519,8 @@ import interiorsImage from '../assets/sol-cohousing-vision-demo-model.webp';
 			gap: 32px;
 		}
 
-		.gantt-header {
-			grid-template-columns: 1fr;
-			gap: 16px;
-			text-align: center;
-		}
-
-		.gantt-labels {
-			grid-template-columns: 1fr;
-			gap: 8px;
-		}
-
-		.gantt-timeline {
+		.timeline-grid {
 			grid-template-columns: repeat(3, 1fr);
-			gap: 4px;
 		}
 
 		.timeline-year-marker {
