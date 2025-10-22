@@ -1,0 +1,599 @@
+---
+import Layout from '../layouts/Layout.astro';
+import cohousingImage from '../assets/sol-cohousing-vision-cohousing.jpg';
+import visionImage from '../assets/sol-cohousing-vision.jpg';
+---
+
+<Layout title="Image Credits | Sol Village">
+	<main class="page">
+		<section class="hero">
+			<div class="hero-content">
+				<h1>Image Credits</h1>
+				<p class="lede">
+					We're grateful to the talented photographers who share their work on Unsplash, 
+					helping us showcase our vision for community-centered living.
+				</p>
+			</div>
+		</section>
+
+		<section class="credits-section">
+
+
+				<div class="featured-images">
+					<h3>Featured Images</h3>
+					<div class="image-gallery">
+						<div class="image-credit-item">
+							<img src={cohousingImage.src} alt="Modern co-housing community with shared outdoor spaces and private homes" />
+							<div class="image-credit-info">
+								<h4>Duwamish Cohousing Community</h4>
+								<p><strong>Photographer: <a href="https://commons.wikimedia.org/wiki/User:Jmabel">Joe Mabel</a></strong></p>
+								<p><strong>Source:</strong> 
+									<a href="https://commons.wikimedia.org/wiki/File:Duwamish_Cohousing_03.jpg" target="_blank" rel="noopener">Wikimedia Commons</a>
+								</p>
+							</div>
+						</div>
+
+						<div class="image-credit-item">
+							<img src={visionImage.src} alt="Community members gathering in a shared outdoor space with beautiful landscaping" />
+							<div class="image-credit-info">
+								<h4>Community Vision</h4>
+								<p><strong>Photographer:</strong> <a href="https://unsplash.com/@taylorheeryphoto" target="_blank" rel="noopener">Taylor Heery</a></p>
+								<p><strong>Source:</strong> 
+									<a href="https://unsplash.com/photos/a-group-of-people-sitting-at-a-long-table-KZfUMAgVPCg" target="_blank" rel="noopener">Unsplash</a>
+								</p>
+							</div>
+						</div>
+					</div>
+				</div>
+
+
+
+
+
+				<div class="attribution-note">
+					<h3>Attribution</h3>
+					<p>
+						We believe in giving credit where credit is due. 
+						If you're a photographer whose work appears on our site and you'd like specific attribution 
+						or have any concerns, please 
+						<a href="mailto:hello@solvillage.org">contact us</a>.
+					</p>
+				</div>
+
+				<div class="design-credit">
+					<h3>Website Development</h3>
+					<p>
+						This website was designed and built by <a href="https://www.switchbacksolutions.net" target="_blank" rel="noopener">Switchback Solutions</a>, 
+						a web development company specializing in creating modern, responsive websites for mission-driven organizations.
+					</p>
+					<p>
+						Switchback Solutions contributed comprehensive web development services including:
+					</p>
+					<ul>
+						<li>Custom website design and user experience optimization</li>
+						<li>Responsive development ensuring compatibility across all devices</li>
+						<li>Performance optimization and modern web standards implementation</li>
+						<li>Content management system integration and deployment</li>
+						<li>Ongoing technical support and maintenance</li>
+					</ul>
+					<p>
+						Their expertise in sustainable web development practices aligns perfectly with our community's 
+						values of environmental responsibility and efficient resource use.
+					</p>
+				</div>
+			</div>
+		</section>
+	</main>
+</Layout>
+
+<style>
+	.page {
+		min-height: 100vh;
+		display: flex;
+		flex-direction: column;
+		gap: 100px;
+		padding: 180px clamp(24px, 5vw, 120px) 120px;
+		box-sizing: border-box;
+		background: linear-gradient(180deg, #f5f5f0 0%, #f8f8f3 100%);
+	}
+
+	.hero {
+		text-align: center;
+		max-width: 900px;
+		margin: 0 auto;
+		position: relative;
+	}
+
+	.hero::before {
+		content: '';
+		position: absolute;
+		top: -20px;
+		left: 50%;
+		transform: translateX(-50%);
+		width: 60px;
+		height: 4px;
+		background: linear-gradient(90deg, #3a5a40, #a3b18a);
+		border-radius: 2px;
+	}
+
+	.hero-content h1 {
+		margin: 0 0 32px;
+		font-family: 'Playfair Display', Georgia, serif;
+		font-size: clamp(48px, 7vw, 72px);
+		color: #3a5a40;
+		line-height: 1.1;
+		letter-spacing: -0.02em;
+		position: relative;
+	}
+
+	.hero-content h1::after {
+		content: '';
+		position: absolute;
+		bottom: -16px;
+		left: 50%;
+		transform: translateX(-50%);
+		width: 80px;
+		height: 2px;
+		background: linear-gradient(90deg, transparent, #a3b18a, transparent);
+	}
+
+	.lede {
+		margin: 0;
+		font-size: 22px;
+		color: #495443;
+		line-height: 1.7;
+		font-weight: 400;
+		max-width: 700px;
+		margin-inline: auto;
+	}
+
+	.credits-section {
+		max-width: 1200px;
+		margin: 0 auto;
+	}
+
+	.credits-content h2 {
+		margin: 0 0 32px;
+		font-family: 'Playfair Display', Georgia, serif;
+		font-size: clamp(36px, 5vw, 56px);
+		color: #3a5a40;
+		text-align: center;
+		position: relative;
+	}
+
+	.credits-content h2::before {
+		content: '';
+		position: absolute;
+		top: -16px;
+		left: 50%;
+		transform: translateX(-50%);
+		width: 100px;
+		height: 3px;
+		background: linear-gradient(90deg, #3a5a40, #a3b18a);
+		border-radius: 2px;
+	}
+
+	.section-intro {
+		margin: 0 0 64px;
+		font-size: 20px;
+		color: #495443;
+		line-height: 1.8;
+		text-align: center;
+		max-width: 800px;
+		margin-inline: auto;
+	}
+
+	/* Featured Images Gallery */
+	.featured-images {
+		margin-bottom: 80px;
+	}
+
+	.featured-images h3 {
+		margin: 0 0 40px;
+		font-family: 'Playfair Display', Georgia, serif;
+		font-size: clamp(28px, 4vw, 40px);
+		color: #3a5a40;
+		text-align: center;
+		position: relative;
+	}
+
+	.featured-images h3::after {
+		content: '';
+		position: absolute;
+		bottom: -12px;
+		left: 50%;
+		transform: translateX(-50%);
+		width: 60px;
+		height: 2px;
+		background: linear-gradient(90deg, #3a5a40, #a3b18a);
+		border-radius: 1px;
+	}
+
+	.image-gallery {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+		gap: 40px;
+		margin-bottom: 40px;
+	}
+
+	.image-credit-item {
+		background: rgba(255, 255, 255, 0.9);
+		border-radius: 24px;
+		overflow: hidden;
+		box-shadow: 0 16px 32px rgba(31, 42, 28, 0.12);
+		transition: all 0.3s ease;
+		border: 1px solid rgba(58, 90, 64, 0.1);
+	}
+
+	.image-credit-item:hover {
+		transform: translateY(-8px);
+		box-shadow: 0 24px 48px rgba(31, 42, 28, 0.18);
+	}
+
+	.image-credit-item img {
+		width: 100%;
+		height: 280px;
+		object-fit: cover;
+		display: block;
+	}
+
+	.image-credit-info {
+		padding: 32px;
+	}
+
+	.image-credit-info h4 {
+		margin: 0 0 16px;
+		font-size: 22px;
+		color: #3a5a40;
+		font-weight: 600;
+		font-family: 'Playfair Display', Georgia, serif;
+	}
+
+	.image-credit-info p {
+		margin: 0 0 12px;
+		color: #495443;
+		line-height: 1.6;
+		font-size: 15px;
+	}
+
+	.image-credit-info a {
+		color: #3a5a40;
+		text-decoration: none;
+		font-weight: 500;
+		border-bottom: 1px solid transparent;
+		transition: border-color 0.2s ease;
+	}
+
+	.image-credit-info a:hover {
+		border-bottom-color: #3a5a40;
+	}
+
+	/* Credits Grid */
+	.credits-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+		gap: 32px;
+		margin-bottom: 80px;
+	}
+
+	.credit-item {
+		background: rgba(255, 255, 255, 0.95);
+		padding: 40px;
+		border-radius: 20px;
+		box-shadow: 0 12px 24px rgba(31, 42, 28, 0.08);
+		border-left: 5px solid #3a5a40;
+		transition: all 0.3s ease;
+		position: relative;
+		overflow: hidden;
+	}
+
+	.credit-item::before {
+		content: '';
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		height: 3px;
+		background: linear-gradient(90deg, #3a5a40, #a3b18a);
+		opacity: 0;
+		transition: opacity 0.3s ease;
+	}
+
+	.credit-item:hover {
+		transform: translateY(-4px);
+		box-shadow: 0 20px 40px rgba(31, 42, 28, 0.15);
+	}
+
+	.credit-item:hover::before {
+		opacity: 1;
+	}
+
+	.credit-item h3 {
+		margin: 0 0 20px;
+		font-size: 22px;
+		color: #3a5a40;
+		font-weight: 600;
+		font-family: 'Playfair Display', Georgia, serif;
+	}
+
+	.credit-item p {
+		margin: 0 0 16px;
+		color: #495443;
+		line-height: 1.7;
+		font-size: 16px;
+	}
+
+	.credit-source {
+		margin-top: 20px !important;
+		font-size: 14px;
+		padding-top: 16px;
+		border-top: 1px solid rgba(58, 90, 64, 0.1);
+	}
+
+	.credit-source a {
+		color: #3a5a40;
+		text-decoration: none;
+		font-weight: 500;
+		border-bottom: 1px solid transparent;
+		transition: border-color 0.2s ease;
+	}
+
+	.credit-source a:hover {
+		border-bottom-color: #3a5a40;
+	}
+
+	/* Unsplash Info Section */
+	.unsplash-info {
+		background: linear-gradient(135deg, rgba(58, 90, 64, 0.08), rgba(163, 177, 138, 0.08));
+		padding: 60px 50px;
+		border-radius: 28px;
+		margin-bottom: 60px;
+		text-align: center;
+		position: relative;
+		border: 1px solid rgba(58, 90, 64, 0.1);
+	}
+
+	.unsplash-info::before {
+		content: '';
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		height: 4px;
+		background: linear-gradient(90deg, #3a5a40, #a3b18a);
+		border-radius: 28px 28px 0 0;
+	}
+
+	.unsplash-info h3 {
+		margin: 0 0 24px;
+		font-size: clamp(28px, 4vw, 36px);
+		color: #3a5a40;
+		font-family: 'Playfair Display', Georgia, serif;
+	}
+
+	.unsplash-info p {
+		margin: 0 0 20px;
+		color: #495443;
+		line-height: 1.8;
+		font-size: 18px;
+		max-width: 700px;
+		margin-inline: auto;
+	}
+
+	.cta-link {
+		display: inline-flex;
+		align-items: center;
+		padding: 16px 32px;
+		border-radius: 999px;
+		font-weight: 600;
+		font-size: 16px;
+		text-decoration: none;
+		transition: all 0.3s ease;
+		background: linear-gradient(135deg, #3a5a40, #a3b18a);
+		color: #fffef6;
+		margin-top: 12px;
+		box-shadow: 0 8px 16px rgba(58, 90, 64, 0.3);
+	}
+
+	.cta-link:hover {
+		transform: translateY(-3px);
+		box-shadow: 0 12px 24px rgba(58, 90, 64, 0.4);
+	}
+
+	/* Attribution Note */
+	.attribution-note {
+		background: rgba(255, 255, 255, 0.8);
+		padding: 40px;
+		border-radius: 20px;
+		border: 1px solid rgba(58, 90, 64, 0.15);
+		position: relative;
+	}
+
+	.attribution-note::before {
+		content: '';
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		height: 3px;
+		background: linear-gradient(90deg, #3a5a40, #a3b18a);
+		border-radius: 20px 20px 0 0;
+	}
+
+	.attribution-note h3 {
+		margin: 0 0 20px;
+		font-size: 24px;
+		color: #3a5a40;
+		font-weight: 600;
+		font-family: 'Playfair Display', Georgia, serif;
+	}
+
+	.attribution-note p {
+		margin: 0;
+		color: #495443;
+		line-height: 1.7;
+		font-size: 16px;
+	}
+
+	.attribution-note a {
+		color: #3a5a40;
+		text-decoration: none;
+		font-weight: 500;
+		border-bottom: 1px solid transparent;
+		transition: border-color 0.2s ease;
+	}
+
+	.attribution-note a:hover {
+		border-bottom-color: #3a5a40;
+	}
+
+	/* Design Credit */
+	.design-credit {
+		margin-top: 40px;
+		padding: 40px;
+		background: rgba(255, 255, 255, 0.8);
+		border-radius: 20px;
+		border: 1px solid rgba(58, 90, 64, 0.15);
+		position: relative;
+	}
+
+	.design-credit::before {
+		content: '';
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		height: 3px;
+		background: linear-gradient(90deg, #3a5a40, #a3b18a);
+		border-radius: 20px 20px 0 0;
+	}
+
+	.design-credit h3 {
+		margin: 0 0 20px;
+		font-size: 24px;
+		color: #3a5a40;
+		font-weight: 600;
+		font-family: 'Playfair Display', Georgia, serif;
+	}
+
+	.design-credit p {
+		margin: 0 0 16px;
+		color: #495443;
+		line-height: 1.7;
+		font-size: 16px;
+	}
+
+	.design-credit ul {
+		margin: 0 0 20px;
+		padding-left: 24px;
+		color: #495443;
+		line-height: 1.6;
+	}
+
+	.design-credit li {
+		margin-bottom: 8px;
+		font-size: 15px;
+	}
+
+	.design-credit a {
+		color: #3a5a40;
+		text-decoration: none;
+		font-weight: 500;
+		border-bottom: 1px solid transparent;
+		transition: border-color 0.2s ease;
+	}
+
+	.design-credit a:hover {
+		border-bottom-color: #3a5a40;
+	}
+
+	/* Responsive Design */
+	@media (max-width: 1024px) {
+		.image-gallery {
+			grid-template-columns: 1fr;
+			gap: 32px;
+		}
+	}
+
+	@media (max-width: 768px) {
+		.page {
+			gap: 80px;
+			padding: 140px 24px 100px;
+		}
+
+		.credits-grid {
+			grid-template-columns: 1fr;
+			gap: 24px;
+		}
+
+		.credit-item {
+			padding: 32px 24px;
+		}
+
+		.image-credit-item {
+			margin-bottom: 24px;
+		}
+
+		.image-credit-info {
+			padding: 24px;
+		}
+
+		.unsplash-info {
+			padding: 40px 24px;
+		}
+
+		.attribution-note {
+			padding: 32px 24px;
+		}
+
+		.lede {
+			font-size: 20px;
+		}
+
+		.section-intro {
+			font-size: 18px;
+		}
+	}
+
+	@media (max-width: 480px) {
+		.page {
+			padding: 120px 20px 80px;
+		}
+
+		.hero-content h1 {
+			font-size: clamp(36px, 8vw, 48px);
+		}
+
+		.lede {
+			font-size: 18px;
+		}
+
+		.credit-item {
+			padding: 24px 20px;
+		}
+
+		.image-credit-info {
+			padding: 20px;
+		}
+
+		.unsplash-info {
+			padding: 32px 20px;
+		}
+
+		.attribution-note {
+			padding: 24px 20px;
+		}
+
+		.design-credit {
+			padding: 32px 20px;
+		}
+
+		.design-credit h3 {
+			font-size: 20px;
+		}
+
+		.design-credit ul {
+			padding-left: 20px;
+		}
+	}
+</style>

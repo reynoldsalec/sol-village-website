@@ -620,6 +620,78 @@ import interiorsImage from '../assets/sol-cohousing-vision-demo-model.webp';
 	// Gantt Chart Interactive Features
 	document.addEventListener('DOMContentLoaded', function() {
 		const ganttBars = document.querySelectorAll('.gantt-bar');
+		let activeTooltip = null;
+		
+		// Function to create and show tooltip
+		function showTooltip(bar) {
+			const phaseIndex = parseInt(bar.dataset.phase) - 1;
+			const phase = TIMELINE_CONFIG.phases[phaseIndex];
+			
+			// Remove any existing tooltip
+			if (activeTooltip && activeTooltip.parentNode) {
+				activeTooltip.parentNode.removeChild(activeTooltip);
+			}
+			
+			// Create tooltip
+			const tooltip = document.createElement('div');
+			tooltip.className = 'gantt-tooltip';
+			
+			tooltip.innerHTML = `
+				<div class="tooltip-content">
+					<h4>${phase.name}</h4>
+					<p>${phase.description}</p>
+					<p><small>Duration: ${phase.duration} years</small></p>
+				</div>
+			`;
+			
+			// Position tooltip relative to the bar
+			const rect = bar.getBoundingClientRect();
+			const barFill = bar.querySelector('.gantt-bar-fill');
+			const barFillRect = barFill.getBoundingClientRect();
+			
+			tooltip.style.position = 'fixed';
+			tooltip.style.top = (barFillRect.top - 10) + 'px';
+			tooltip.style.left = (barFillRect.left + barFillRect.width / 2) + 'px';
+			tooltip.style.transform = 'translateX(-50%) translateY(-100%)';
+			tooltip.style.zIndex = '9999';
+			
+			document.body.appendChild(tooltip);
+			
+			// Apply final styling inline
+			tooltip.style.backgroundColor = 'rgba(255, 255, 255, 0.95)';
+			tooltip.style.color = '#495443';
+			tooltip.style.padding = '20px 24px';
+			tooltip.style.borderRadius = '16px';
+			tooltip.style.fontSize = '14px';
+			tooltip.style.boxShadow = '0 16px 32px rgba(31, 42, 28, 0.15)';
+			tooltip.style.pointerEvents = 'none';
+			tooltip.style.maxWidth = '90vw';
+			tooltip.style.minWidth = '280px';
+			tooltip.style.lineHeight = '1.6';
+			tooltip.style.border = '1px solid rgba(58, 90, 64, 0.2)';
+			tooltip.style.backdropFilter = 'blur(10px)';
+			
+			// Adjust positioning for mobile
+			const isMobile = window.innerWidth <= 768;
+			if (isMobile) {
+				// Center the tooltip and make it wider on mobile
+				tooltip.style.left = '50%';
+				tooltip.style.transform = 'translateX(-50%) translateY(-100%)';
+				tooltip.style.maxWidth = '95vw';
+				tooltip.style.width = 'auto';
+			}
+			
+			activeTooltip = tooltip;
+			return tooltip;
+		}
+		
+		// Function to hide tooltip
+		function hideTooltip() {
+			if (activeTooltip && activeTooltip.parentNode) {
+				activeTooltip.parentNode.removeChild(activeTooltip);
+				activeTooltip = null;
+			}
+		}
 		
 		// Initialize timeline based on configuration
 		function initializeTimeline() {
@@ -667,67 +739,47 @@ import interiorsImage from '../assets/sol-cohousing-vision-demo-model.webp';
 				}
 			});
 			
-			// Add tooltip on hover with phase description
+			// Add tooltip on hover with phase description (desktop)
 			bar.addEventListener('mouseenter', function() {
-				const phaseIndex = parseInt(this.dataset.phase) - 1;
-				const phase = TIMELINE_CONFIG.phases[phaseIndex];
-				
-				// Create tooltip
-				const tooltip = document.createElement('div');
-				tooltip.className = 'gantt-tooltip';
-				
-				tooltip.innerHTML = `
-					<div class="tooltip-content">
-						<h4>${phase.name}</h4>
-						<p>${phase.description}</p>
-						<p><small>Duration: ${phase.duration} years</small></p>
-					</div>
-				`;
-				
-				// Position tooltip relative to the bar
-				const rect = this.getBoundingClientRect();
-				const barFill = this.querySelector('.gantt-bar-fill');
-				const barFillRect = barFill.getBoundingClientRect();
-				
-				tooltip.style.position = 'fixed';
-				tooltip.style.top = (barFillRect.top - 10) + 'px';
-				tooltip.style.left = (barFillRect.left + barFillRect.width / 2) + 'px';
-				tooltip.style.transform = 'translateX(-50%) translateY(-100%)';
-				tooltip.style.zIndex = '9999';
-				
-				document.body.appendChild(tooltip);
-				
-				// Apply final styling inline
-				tooltip.style.backgroundColor = 'rgba(255, 255, 255, 0.95)';
-				tooltip.style.color = '#495443';
-				tooltip.style.padding = '20px 24px';
-				tooltip.style.borderRadius = '16px';
-				tooltip.style.fontSize = '14px';
-				tooltip.style.boxShadow = '0 16px 32px rgba(31, 42, 28, 0.15)';
-				tooltip.style.pointerEvents = 'none';
-				tooltip.style.maxWidth = '320px';
-				tooltip.style.lineHeight = '1.6';
-				tooltip.style.border = '1px solid rgba(58, 90, 64, 0.2)';
-				tooltip.style.backdropFilter = 'blur(10px)';
-				
-				// Remove tooltip on mouse leave
-				bar.addEventListener('mouseleave', function() {
-					if (tooltip.parentNode) {
-						tooltip.parentNode.removeChild(tooltip);
-					}
-				}, { once: true });
+				showTooltip(this);
+			});
+			
+			// Remove tooltip on mouse leave (desktop)
+			bar.addEventListener('mouseleave', function() {
+				hideTooltip();
+			});
+			
+			// Add touch handlers for mobile devices
+			bar.addEventListener('touchstart', function(e) {
+				e.preventDefault();
+				showTooltip(this);
 			});
 		});
+		
+		// Close tooltips on scroll (mobile behavior)
+		document.addEventListener('scroll', function() {
+			hideTooltip();
+		}, { passive: true });
+		
+		// Close tooltips when touching outside the gantt chart
+		document.addEventListener('touchstart', function(e) {
+			// Check if the touch is outside any gantt bar
+			const isGanttBar = e.target.closest('.gantt-bar');
+			if (!isGanttBar) {
+				hideTooltip();
+			}
+		}, { passive: true });
 		
 		// Add keyboard navigation
 		document.addEventListener('keydown', function(e) {
 			if (e.key === 'Escape') {
-				// Remove all active states
+				// Remove all active states and tooltips
 				ganttBars.forEach(bar => {
 					bar.classList.remove('active');
 					bar.style.zIndex = '1';
 					bar.style.boxShadow = 'none';
 				});
+				hideTooltip();
 			}
 		});
 	});
@@ -735,17 +787,27 @@ import interiorsImage from '../assets/sol-cohousing-vision-demo-model.webp';
 
 <style>
 	.gantt-tooltip {
-		background: rgba(255, 0, 0, 0.9) !important;
-		color: white !important;
+		background: rgba(255, 255, 255, 0.95) !important;
+		color: #495443 !important;
 		padding: 20px 24px;
 		border-radius: 16px;
 		font-size: 14px;
 		box-shadow: 0 16px 32px rgba(31, 42, 28, 0.15);
 		pointer-events: none;
-		max-width: 320px;
+		max-width: 90vw;
+		min-width: 280px;
 		line-height: 1.6;
-		border: 2px solid yellow !important;
+		border: 1px solid rgba(58, 90, 64, 0.2) !important;
 		backdrop-filter: blur(10px);
+	}
+	
+	@media (max-width: 768px) {
+		.gantt-tooltip {
+			max-width: 95vw !important;
+			min-width: 90vw !important;
+			padding: 16px 20px !important;
+			font-size: 16px !important;
+		}
 	}
 	
 	.tooltip-content h4 {

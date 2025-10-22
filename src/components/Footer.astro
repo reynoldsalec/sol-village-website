@@ -41,7 +41,11 @@
 		
 		<div class="footer-bottom">
 			<p>&copy; 2025 Sol Learning Institute. All rights reserved.</p>
-			<p><a href="/privacy">Privacy Policy</a></p>
+			<div class="footer-bottom-links">
+				<p><a href="/privacy">Privacy Policy</a></p>
+				<p><a href="/credits">Image Credits</a></p>
+			</div>
+			<p class="design-credit">Website by <a href="https://www.switchbacksolutions.net" target="_blank" rel="noopener">Switchback Solutions LLC</a></p>
 		</div>
 	</div>
 </footer>
@@ -153,13 +157,37 @@
 		text-align: center;
 		display: flex;
 		flex-direction: column;
-		gap: 8px;
+		gap: 16px;
+	}
+
+	.footer-bottom-links {
+		display: flex;
+		justify-content: center;
+		gap: 24px;
+		flex-wrap: wrap;
 	}
 	
 	.footer-bottom p {
 		margin: 0;
 		font-size: 14px;
 		color: rgba(255, 254, 246, 0.7);
+	}
+
+	.design-credit {
+		font-size: 13px !important;
+		color: rgba(255, 254, 246, 0.6) !important;
+		font-style: italic;
+		margin-top: 8px !important;
+	}
+
+	.design-credit a {
+		color: rgba(255, 254, 246, 0.6) !important;
+		text-decoration: none;
+		transition: color 0.2s ease;
+	}
+
+	.design-credit a:hover {
+		color: rgba(255, 254, 246, 0.8) !important;
 	}
 	
 	@media (max-width: 768px) {
@@ -203,6 +231,11 @@
 		.social-links {
 			flex-direction: column;
 			gap: 16px;
+		}
+
+		.footer-bottom-links {
+			flex-direction: column;
+			gap: 12px;
 		}
 	}
 </style>
