@@ -566,6 +566,19 @@ import interiorsImage from '../assets/sol-cohousing-vision-demo-model.webp';
 			padding-inline: 24px;
 		}
 	}
+
+	@media (max-width: 640px) {
+		.timeline-grid {
+			grid-template-columns: repeat(2, 1fr);
+		}
+
+		.timeline-cell:nth-child(2),
+		.timeline-cell:nth-child(3),
+		.timeline-cell:nth-child(4),
+		.timeline-cell:nth-child(5) {
+			display: none;
+		}
+	}
 </style>
 
 <script>
