@@ -60,16 +60,14 @@ import Layout from '../layouts/Layout.astro';
 					<div class="field-group span-2">
 						<label class="checkbox-label">
 							<input type="checkbox" name="newsletter" checked />
-							<span class="checkmark"></span>
-							Send me updates about Sol Village news and events
+							<span class="checkbox-text">Send me updates about Sol Village news and events</span>
 						</label>
 					</div>
 
 					<div class="field-group span-2">
 						<label class="checkbox-label">
 							<input type="checkbox" name="privacy" required />
-							<span class="checkmark"></span>
-							I agree to the <a href="/privacy" target="_blank">Privacy Policy</a> and understand how my information will be used *
+							<span class="checkbox-text">I agree to the <a href="/privacy" target="_blank">Privacy Policy</a> and understand how my information will be used *</span>
 						</label>
 					</div>
 				</div>
@@ -279,7 +277,7 @@ import Layout from '../layouts/Layout.astro';
 
 	.checkbox-label {
 		display: flex;
-		align-items: flex-start;
+		align-items: center;
 		gap: 12px;
 		cursor: pointer;
 		font-weight: 500;
@@ -292,8 +290,11 @@ import Layout from '../layouts/Layout.astro';
 		width: 18px;
 		height: 18px;
 		flex-shrink: 0;
-		margin-top: 2px;
 		accent-color: #3a5a40;
+	}
+
+	.checkbox-text {
+		flex: 1;
 	}
 
 	.checkbox-label a {
@@ -306,7 +307,7 @@ import Layout from '../layouts/Layout.astro';
 	}
 
 	.cta-primary {
-		display: inline-flex;
+		display: flex;
 		align-items: center;
 		justify-content: center;
 		padding: 16px 32px;
