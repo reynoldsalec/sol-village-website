@@ -300,6 +300,7 @@ import interiorsImage from '../assets/sol-cohousing-vision-demo-model.webp';
 
 	.timeline-section {
 		text-align: center;
+		width: 100%;
 		max-width: 1200px;
 		margin: 0 auto;
 	}
@@ -324,6 +325,8 @@ import interiorsImage from '../assets/sol-cohousing-vision-demo-model.webp';
 		box-shadow: 0 16px 32px rgba(31, 42, 28, 0.12);
 		overflow: hidden;
 		text-align: left;
+		width: 100%;
+		max-width: none;
 	}
 
 	.gantt-header {
@@ -655,11 +658,14 @@ import interiorsImage from '../assets/sol-cohousing-vision-demo-model.webp';
 					</div>
 				`;
 				
-				// Position tooltip
+				// Position tooltip relative to the bar
 				const rect = this.getBoundingClientRect();
+				const barFill = this.querySelector('.gantt-bar-fill');
+				const barFillRect = barFill.getBoundingClientRect();
+				
 				tooltip.style.position = 'fixed';
-				tooltip.style.top = (rect.top - 10) + 'px';
-				tooltip.style.left = (rect.left + rect.width / 2) + 'px';
+				tooltip.style.top = (barFillRect.top - 10) + 'px';
+				tooltip.style.left = (barFillRect.left + barFillRect.width / 2) + 'px';
 				tooltip.style.transform = 'translateX(-50%) translateY(-100%)';
 				tooltip.style.zIndex = '9999';
 				
